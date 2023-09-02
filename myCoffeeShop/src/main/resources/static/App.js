@@ -1,49 +1,24 @@
-import { StatusBar } from 'expo-status-bar';
-import {Button, StyleSheet, Text, View} from 'react-native';
+import {NavigationContainer} from "@react-navigation/native";
+import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import Welcome from "./Screens/Welcome";
+import Password from "./Screens/Password";
+import Admin from "./Screens/AdminScreens/Admin";
+import Store from "./Screens/StoreScreens/Store";
 
-
-
-const baseURL = "http://localhost:8080/test";
-
-let myTEXT = "FAT";
-
-async function fetchData(){
-    console.log("START")
-  const responseJson = await fetch(
-      baseURL,
-      {
-        method: "GET",
-        headers: {
-          'Content-Type' : 'application/text'
-        },
-      });
-
-    myTEXT = await responseJson.json();
-    console.log("---->" + myTEXT);
-
-  if(responseJson.ok){
-    console.log(myTEXT);
-  }else{
-    console.log("an error has ocurred");
-  }
-}
+const Stack = createNativeStackNavigator()
 
 export default function App() {
         return (
-            <View style={styles.container}>
-                <Text>{myTEXT}</Text>
-                <Button title={"Schimba"} onPress={() => {fetchData().then(() => console.log(myTEXT))}}/>
-                <StatusBar style="auto"/>
-            </View>
+            <NavigationContainer>
+                <Stack.Navigator initialRouteName={"Welcome"}>
+                    <Stack.Screen options={{headerShown:false}} name="Welcome" component={Welcome}/>
+                    <Stack.Screen options={{headerShown:false}} name={"Password"} component={Password}/>
+                    <Stack.Screen options={{headerShown:false}} name={"Admin"} component={Admin}/>
+                    <Stack.Screen options={{headerShown:false}} name={"Store"} component={Store}/>
+                </Stack.Navigator>
+            </NavigationContainer>
         );
 
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
