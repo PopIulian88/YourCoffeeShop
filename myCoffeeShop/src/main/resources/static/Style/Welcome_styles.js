@@ -21,8 +21,10 @@ export const welcome_styles = StyleSheet.create({
     },
 
     textContainer: {
+        flex: 1,
         padding: 20,
         alignItems: "center",
+        justifyContent: "center",
     },
 
     textWelcome: {
@@ -33,6 +35,11 @@ export const welcome_styles = StyleSheet.create({
     text: {
         fontSize: 16,
         textAlign: 'center',
+    },
+
+    buttonContainer: {
+        flex: 3,
+        justifyContent: "center",
     },
 
     containerDown: {
