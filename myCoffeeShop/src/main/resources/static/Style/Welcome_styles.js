@@ -5,13 +5,13 @@ export const welcome_styles = StyleSheet.create({
 
     container: {
         flex: 1,
+        paddingTop: 50,
+        padding: 10,
+        backgroundColor: BACKGROUND_COLOR,
     },
 
     containerUp: {
         height: "96%",
-        backgroundColor: BACKGROUND_COLOR,
-        paddingTop: 50,
-        padding: 10,
         alignItems: "center",
     },
 
@@ -46,7 +46,6 @@ export const welcome_styles = StyleSheet.create({
         height: "4%",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: BACKGROUND_COLOR,
     },
 
     contactText: {

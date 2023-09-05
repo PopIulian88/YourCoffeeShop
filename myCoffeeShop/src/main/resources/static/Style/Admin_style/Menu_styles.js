@@ -1,7 +1,7 @@
 import {StyleSheet} from "react-native";
-import {BACKGROUND_COLOR} from "../Colors";
+import {BACKGROUND_COLOR} from "../../Colors";
 
-export const app_styles = StyleSheet.create({
+export const menu_styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: BACKGROUND_COLOR,

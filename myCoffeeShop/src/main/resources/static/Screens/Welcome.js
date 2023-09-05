@@ -15,7 +15,7 @@ export default function Welcome({ navigation }) {
                 </View>
 
                 <View style={welcome_styles.buttonContainer}>
-                    <Admin_Employee_Button title={"Admin"} text={"Manage the products and see the profits"} navigation={navigation} navTo="Password"/>
+                    <Admin_Employee_Button title={"Admin"} text={"Manage the products and see the profits"} navigation={navigation} navTo="Admin"/>
                     <Spacer/>
                     <Admin_Employee_Button title={"EMPLOYEE"} text={"Place the orders and organize the restaurant"} navigation={navigation} navTo="Store"/>
                 </View>
