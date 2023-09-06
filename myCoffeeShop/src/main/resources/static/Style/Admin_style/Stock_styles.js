@@ -27,6 +27,8 @@ export const stock_styles = StyleSheet.create({
 
     title: {
         fontSize: 32,
+        fontWeight: "bold",
+
     },
 
     plusIcon: {

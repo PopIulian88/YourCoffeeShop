@@ -2,6 +2,7 @@ import {Text, View, ScrollView, Image, TouchableOpacity} from 'react-native';
 import {stock_styles} from "../../Style/Admin_style/Stock_styles";
 import {MaterialIcons} from "@expo/vector-icons";
 import StockComponent from "../../Components/StockComponent";
+import Spacer from "../../Components/Spacer";
 
 export default function Stock({navigation}) {
     return (
@@ -12,6 +13,7 @@ export default function Stock({navigation}) {
                     <Text style={stock_styles.title}>Stock</Text>
                     <Image source={require("../../Poze/Logo.png")} style={stock_styles.logo}/>
                 </View>
+
 
                 <TouchableOpacity style={stock_styles.addStock}>
                     <MaterialIcons
@@ -26,7 +28,7 @@ export default function Stock({navigation}) {
             <ScrollView style={stock_styles.containerScrollView} contentContainerStyle={{alignItems: "center"}} >
                 <StockComponent name={"Coffee beans"} price={6} amount={1} unit="kg" quantity={269} navigation={navigation}/>
 
-                <StockComponent navigation={navigation}/>
+                <StockComponent name={"Milk"} price={2} amount={1} unit="liter" quantity={100} navigation={navigation}/>
 
                 <StockComponent navigation={navigation}/>
             </ScrollView>
