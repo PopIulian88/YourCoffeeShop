@@ -6,6 +6,7 @@ export const stock_styles = StyleSheet.create({
         flex: 1,
         paddingTop: 50,
         padding: 10,
+        paddingBottom: 0,
         backgroundColor: BACKGROUND_COLOR,
         alignItems: 'center',
     },
