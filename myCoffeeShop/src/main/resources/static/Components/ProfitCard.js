@@ -1,6 +1,6 @@
 import {Text, View} from 'react-native';
 import {profitCard_styles} from "../Style/Components_style/ProfitCard_styles";
-import {LITE_GREEN, LITE_RED} from "../Colors";
+import {LITE_GREEN, LITE_RED} from "../Help_Box/Colors";
 import Spacer from "./Spacer";
 
 export default function ProfitCard({money=0, text="Profit"}) {

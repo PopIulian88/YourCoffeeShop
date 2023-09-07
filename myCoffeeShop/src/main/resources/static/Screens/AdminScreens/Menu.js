@@ -4,7 +4,7 @@ import StockComponent from "../../Components/StockComponent";
 import {menu_styles} from "../../Style/Admin_style/Menu_styles";
 import MenuComponent from "../../Components/MenuComponent";
 import Spacer from "../../Components/Spacer";
-import {BACKGROUND_COLOR, DARK_GREEN} from "../../Colors";
+import {BACKGROUND_COLOR, DARK_GREEN} from "../../Help_Box/Colors";
 import {useState} from "react";
 
 export default function Menu({navigation}) {

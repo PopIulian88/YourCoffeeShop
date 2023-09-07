@@ -1,5 +1,5 @@
 import {StyleSheet} from "react-native";
-import {DARK_GREEN} from "../../Colors";
+import {DARK_GREEN} from "../../Help_Box/Colors";
 
 
 export const textButton_styles = StyleSheet.create({

@@ -1,5 +1,5 @@
 import {StyleSheet} from "react-native";
-import {BACKGROUND_COLOR, DARK_GREEN} from "../../Colors";
+import {BACKGROUND_COLOR, DARK_GREEN} from "../../Help_Box/Colors";
 
 export const menu_styles = StyleSheet.create({
     container: {

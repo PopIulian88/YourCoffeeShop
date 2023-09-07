@@ -1,7 +1,7 @@
 import {Text, View, TouchableOpacity, ScrollView} from 'react-native';
 import {profile_styles} from "../../Style/Admin_style/Profile_styles";
 import {MaterialCommunityIcons, MaterialIcons, Octicons} from "@expo/vector-icons";
-import {MY_RED} from "../../Colors";
+import {MY_RED} from "../../Help_Box/Colors";
 import Spacer from "../../Components/Spacer";
 import ProfitCard from "../../Components/ProfitCard";
 

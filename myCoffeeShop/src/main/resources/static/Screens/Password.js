@@ -4,7 +4,7 @@ import {OtpInput} from 'react-native-otp-entry';
 import TextButton from "../Components/TextButton";
 import Spacer from "../Components/Spacer";
 import {MaterialIcons} from "@expo/vector-icons";
-import {DARK_GREEN} from "../Colors";
+import {DARK_GREEN} from "../Help_Box/Colors";
 import {useState} from "react";
 
 const CORECT_PASSWORD = "250804";

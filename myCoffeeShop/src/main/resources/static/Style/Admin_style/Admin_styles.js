@@ -1,5 +1,5 @@
 import {StyleSheet} from "react-native";
-import {BACKGROUND_COLOR, DARK_GREEN, MY_GRAY} from "../../Colors";
+import {BACKGROUND_COLOR, DARK_GREEN, MY_GRAY} from "../../Help_Box/Colors";
 import {FontAwesome5, MaterialIcons} from "@expo/vector-icons";
 
 export const admin_styles = StyleSheet.create({

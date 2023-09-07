@@ -1,5 +1,5 @@
 import {StyleSheet} from "react-native";
-import {BACKGROUND_COLOR} from "../Colors";
+import {BACKGROUND_COLOR} from "../Help_Box/Colors";
 
 export const welcome_styles = StyleSheet.create({
 

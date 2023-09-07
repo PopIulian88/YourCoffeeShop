@@ -1,7 +1,7 @@
 import {Text, View, Image, TouchableOpacity} from 'react-native';
 import {stockComponent_styles} from "../Style/Components_style/StockComponent_styles";
 import LilButton from "./LilButton";
-import {DARK_GREEN, MY_GRAY, MY_RED} from "../Colors";
+import {DARK_GREEN, MY_GRAY, MY_RED} from "../Help_Box/Colors";
 import Spacer from "./Spacer";
 
 export default function StockComponent({name="Name", price=0, amount=1, unit="kg",
