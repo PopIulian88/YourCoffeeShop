@@ -1,12 +1,12 @@
-import {Button, Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {table_styles} from "../../Style/Store_style/Table_styles";
 import {BACKGROUND_COLOR, DARK_GREEN, MY_RED} from "../../Help_Box/Colors";
 import Spacer from "../../Components/Spacer";
-import {MaterialCommunityIcons, MaterialIcons} from "@expo/vector-icons";
+import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {useState} from "react";
 import OrderTableComponent from "../../Components/OrderTableComponent";
 
-export default function Table({nr=0, navigation}) {
+export default function Table({nr=1, navigation}) {
 
     const [curentLine, setCurentLine] = useState(1);
 

@@ -1,10 +1,16 @@
 import {StyleSheet} from "react-native";
 import {BACKGROUND_COLOR, DARK_GREEN} from "../../Help_Box/Colors";
 
-export const menuComponent_styles = StyleSheet.create({
+export const finishOrderComponent_styles = StyleSheet.create({
     container: {
-        height: 140,
+        height: 180,
         width: "95%",
+        justifyContent: "space-between"
+    },
+
+    containerCard: {
+        height: 140,
+        width: "100%",
         flexDirection: "row",
         borderRadius: 20,
         backgroundColor: "white"
@@ -24,13 +30,6 @@ export const menuComponent_styles = StyleSheet.create({
         justifyContent: "center",
     },
 
-    image: {
-        height: "100%",
-        width: "100%",
-        resizeMode: "contain",
-        borderRadius: 20,
-    },
-
     title: {
         fontSize: 24,
     },
@@ -39,4 +38,23 @@ export const menuComponent_styles = StyleSheet.create({
         fontSize: 16,
         color: DARK_GREEN,
     },
+
+    image: {
+        height: "100%",
+        width: "100%",
+        borderRadius: 20,
+    },
+
+    containerButton: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+    },
+
+    amountText: {
+        paddingLeft: 20,
+        fontSize: 24,
+        color: DARK_GREEN,
+    }
+
 });

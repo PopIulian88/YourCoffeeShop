@@ -69,7 +69,7 @@ export default function OrderTableComponent({name="Name", price=0, navigation,
                     </TouchableOpacity>
                 </View>
             </View>
-            <Spacer/>
+            <Spacer height={30}/>
         </>
     );
 
