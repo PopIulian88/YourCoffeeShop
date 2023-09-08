@@ -7,7 +7,7 @@ export default function MenuComponent({name="Name", price=0, navigation,
     return (
         <>
             <TouchableOpacity style={menuComponent_styles.container} onPress={() => {
-                alert("Aici o sa editezi")
+                navigation.navigate("EditMenu");
             }}>
                 <View style={menuComponent_styles.leftCard}>
                     <Text style={menuComponent_styles.title}>{name}</Text>
