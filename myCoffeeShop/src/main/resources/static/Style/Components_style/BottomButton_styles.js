@@ -21,7 +21,7 @@ export const bottomButton_styles = StyleSheet.create({
     },
 
     text: {
-        fontSize: 24,
+        fontSize: 36,
         color: "white",
     }
 
