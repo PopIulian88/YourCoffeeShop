@@ -1,10 +1,77 @@
-import {Button, Text, View} from 'react-native';
+import {Button, Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {table_styles} from "../../Style/Store_style/Table_styles";
+import {BACKGROUND_COLOR, DARK_GREEN, MY_RED} from "../../Help_Box/Colors";
+import Spacer from "../../Components/Spacer";
+import {MaterialCommunityIcons, MaterialIcons} from "@expo/vector-icons";
+import {useState} from "react";
+import OrderTableComponent from "../../Components/OrderTableComponent";
 
-export default function Table() {
+export default function Table({nr=0, navigation}) {
+
+    const [curentLine, setCurentLine] = useState(1);
+
     return (
         <View style={table_styles.container}>
-            <Text>Buna</Text>
+            <View style={table_styles.containerUp}>
+                <View style={table_styles.containerUpText}>
+                    <TouchableOpacity onPress={() => {
+                        navigation.goBack();
+                    }}>
+                        <MaterialCommunityIcons
+                            name="keyboard-backspace"
+                            size={40}
+                            color={MY_RED}
+                            style={table_styles.backIcon}
+                        />
+                    </TouchableOpacity>
+
+                    <View style={{flexDirection: "row"}}>
+                        <Text style={table_styles.title}>Order Table</Text>
+                        <Text style={[table_styles.title, {color: DARK_GREEN}]}> #{nr}</Text>
+                    </View>
+                    <Image source={require("../../Poze/Logo.png")} style={table_styles.logo}/>
+                </View>
+
+                <TouchableOpacity style={table_styles.orderButton} onPress={() => {
+                    navigation.navigate("FinishOrder");
+                }}>
+                    <Text style={table_styles.text}>Show order</Text>
+                </TouchableOpacity>
+
+                <Spacer height={10}/>
+                <View style={table_styles.blackLine}></View>
+                <Spacer height={10}/>
+
+
+                <View style={table_styles.tabContainer}>
+                    <TouchableOpacity style={table_styles.tabTextContainer} onPress={() => setCurentLine(1)}>
+                        <Text style={{fontSize: 28}}>Drinks</Text>
+                        <View style={[table_styles.line,curentLine === 1 ? {backgroundColor: DARK_GREEN} :
+                            {backgroundColor: BACKGROUND_COLOR}]}></View>
+                    </TouchableOpacity>
+
+
+                    <TouchableOpacity style={table_styles.tabTextContainer} onPress={() => setCurentLine(2)}>
+                        <Text style={{fontSize: 28}}>Food</Text>
+                        <View style={[table_styles.line,curentLine === 2 ? {backgroundColor: DARK_GREEN} :
+                            {backgroundColor: BACKGROUND_COLOR}]}></View>
+                    </TouchableOpacity>
+                </View>
+
+                <Spacer height={5}/>
+
+            </View>
+
+            <ScrollView style={table_styles.containerScrollView} contentContainerStyle={{alignItems: "center"}} >
+                <OrderTableComponent name={"Ice Coffee"} price={12}  navigation={navigation}
+                                     photoLink={"https://images.immediate.co.uk/production/volatile/sites/2/2021/08/coldbrew-iced-latte-with-my-recipe-photo-by-@ellamiller_photo-f1e3d9e.jpg?quality=90&resize=556,505"}/>
+                <OrderTableComponent name={"Latte"} price={7} navigation={navigation}
+                                     photoLink={"https://www.caffesociety.co.uk/assets/recipe-images/latte-small.jpg"}/>
+                <OrderTableComponent/>
+                <OrderTableComponent/>
+                <OrderTableComponent/>
+
+            </ScrollView>
         </View>
     );
 
