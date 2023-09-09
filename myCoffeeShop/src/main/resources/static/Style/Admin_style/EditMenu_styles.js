@@ -11,5 +11,45 @@ export const editMenu_styles = StyleSheet.create({
         alignItems: 'center',
     },
 
+    containerHeader: {
+        height: 50,
+        width: "100%",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+    },
+
+    backIcon: {
+
+    },
+
+    textHeader: {
+        fontSize: 32,
+    },
+
+    containerScrollView: {
+        flexGrow: 1,
+        width: "100%",
+        paddingTop: 20,
+    },
+
+    containerTextImput: {
+        width: "95%",
+    },
+
+    text: {
+        paddingLeft: 10,
+        fontSize: 20,
+    },
+
+    inputBox: {
+        height: 50,
+        width: "100%",
+        padding: 10,
+        borderRadius: 20,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "white",
+    },
 
 });

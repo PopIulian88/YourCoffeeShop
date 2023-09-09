@@ -13,7 +13,6 @@ export default function StockScreen({navigation}) {
                     <Image source={require("../../Poze/Logo.png")} style={stock_styles.logo}/>
                 </View>
 
-
                 <TouchableOpacity style={stock_styles.addStock} onPress={() => {
                     navigation.navigate("AddStock");
                 }}>
