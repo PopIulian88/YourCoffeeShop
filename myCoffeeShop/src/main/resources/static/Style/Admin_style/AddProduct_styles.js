@@ -43,13 +43,51 @@ export const addProduct_styles = StyleSheet.create({
     },
 
     inputBox: {
+        flex: 2,
         height: 50,
-        width: "100%",
         padding: 10,
         borderRadius: 20,
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: "white",
+    },
+
+    containerAddIncredient: {
+        flexDirection: "row",
+    },
+
+    addIncredientButton: {
+        flex: 1,
+        height: 50,
+        padding: 10,
+        alignItems: "center",
+        alignSelf: "center",
+        justifyContent: "center",
+        borderRadius: 20,
+        backgroundColor: DARK_GREEN,
+    },
+
+    addIncredientText: {
+        fontSize: 16,
+        color: "white",
+        textAlign: "center",
+    },
+
+    placeholderStyle: {
+        fontSize: 16,
+    },
+
+    selectedTextStyle: {
+        fontSize: 16,
+    },
+
+    inputSearchStyle: {
+        fontSize: 16,
+    },
+
+    iconStyle: {
+        height: 30,
+        width: 30,
     },
 
 });
