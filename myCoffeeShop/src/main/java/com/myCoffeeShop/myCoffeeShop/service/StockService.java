@@ -1,5 +1,6 @@
 package com.myCoffeeShop.myCoffeeShop.service;
 
+import com.myCoffeeShop.myCoffeeShop.entity.Product;
 import com.myCoffeeShop.myCoffeeShop.entity.Stock;
 import com.myCoffeeShop.myCoffeeShop.repository.StockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,9 @@ import java.util.List;
 public class StockService {
     @Autowired
     private StockRepository stockRepository;
+
+    @Autowired
+    private ProductService productService;
 
     public Stock saveStock(Stock stock) {
         return stockRepository.save(stock);
@@ -33,6 +37,16 @@ public class StockService {
     }
 
     public String deleteStock(Long id){
+
+        Stock myStock = getStockById(id);
+        if(myStock.getId() != null){
+            List<Product> productList = productService.findAllProductsByStock(myStock);
+
+            for(Product product: productList){
+                productService.deleteProduct(product.getId());
+            }
+        }
+
         stockRepository.deleteById(id);
         return "Stock remove: " + id;
     }
