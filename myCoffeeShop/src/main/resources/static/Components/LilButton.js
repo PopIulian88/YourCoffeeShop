@@ -3,8 +3,23 @@ import {lilButton_styles} from "../Style/Components_style/LilButton_styles";
 import {useState} from "react";
 import {modal_styles} from "../Style/Modal_styles";
 import Spacer from "./Spacer";
+import {MY_IP} from "../Help_Box/IP_help";
 
-export default function LilButton({text="null", color="black", navigation, action}) {
+
+async function fetchDataDeleteStocks(id){
+    const responseJson = await fetch(
+        "http://" + MY_IP + ":8080/stock/delete/" + id,
+        {
+            method: "DELETE",
+            headers: {
+                'Content-Type' : 'application/json'
+            }
+        });
+
+    return responseJson;
+}
+
+export default function LilButton({data, text="null", color="black", navigation, action="null"}) {
 
         const [modalVisible, setModalVisible] = useState(false);
 
@@ -17,7 +32,14 @@ export default function LilButton({text="null", color="black", navigation, actio
             }else if(text === "EDIT"){
                 navigation.navigate("EditStock");
             }else{
-                alert("Ai sters obiect");
+                if (action === "STOCK") {
+                    fetchDataDeleteStocks(data.id).then(r => {
+                        console.log("SUCCES DELETE STOCK")
+                        Alert.alert("Stock DELETE", "Please press the refresh button");
+                    }).catch(e => {
+                        console.log(e);
+                    });
+                }
             }
         }}>
 

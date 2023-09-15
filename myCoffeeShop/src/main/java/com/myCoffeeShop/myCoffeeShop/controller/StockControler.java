@@ -44,7 +44,7 @@ public class StockControler {
     }
 
     @DeleteMapping("/stock/delete/{id}")
-    public String deleteStock(@PathVariable Long id) {
-        return stockService.deleteStock(id);
+    public void deleteStock(@PathVariable Long id) {
+        stockService.deleteStock(id);
     }
 }

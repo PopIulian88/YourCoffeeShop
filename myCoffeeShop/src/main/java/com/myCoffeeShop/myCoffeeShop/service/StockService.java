@@ -36,7 +36,7 @@ public class StockService {
         return stockRepository.findByName(name);
     }
 
-    public String deleteStock(Long id){
+    public void deleteStock(Long id){
 
         Stock myStock = getStockById(id);
         if(myStock.getId() != null){
@@ -48,7 +48,6 @@ public class StockService {
         }
 
         stockRepository.deleteById(id);
-        return "Stock remove: " + id;
     }
 
     public Stock updateStock(Stock stock){

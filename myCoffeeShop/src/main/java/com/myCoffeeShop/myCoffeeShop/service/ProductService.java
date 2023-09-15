@@ -37,9 +37,8 @@ public class ProductService {
         return productRepository.findAllByIncredients(stock);
     }
 
-    public String deleteProduct(Long id){
+    public void deleteProduct(Long id){
         productRepository.deleteById(id);
-        return "Product remove: " + id;
     }
 
     public Product updateProduct(Product product){
