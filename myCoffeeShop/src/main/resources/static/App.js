@@ -26,6 +26,8 @@ async function fetchDataGetStocks(){
 export default function App() {
 
     const [stocksData, setStocksData] = useState([]);
+    const [stockToEdit, setStockToEdit] = useState({});
+
 
     useEffect(() => {
         fetchDataGetStocks().then(respons => {
@@ -36,7 +38,7 @@ export default function App() {
 
 
         return (
-            <MyContext.Provider value={{stocksData, setStocksData }}>
+            <MyContext.Provider value={{stocksData, setStocksData, stockToEdit, setStockToEdit}}>
                 <NavigationContainer>
                     <Stack.Navigator initialRouteName={"Welcome"}>
                         <Stack.Screen options={{headerShown:false}} name="Welcome" component={Welcome}/>

@@ -23,9 +23,9 @@ export default function StockComponent({data, name="Name", price=0, amount=1, un
             </View>
 
             <View style={stockComponent_styles.containerButton}>
-                <LilButton text="ADD" color={DARK_GREEN}/>
+                <LilButton data={data} text="ADD" color={DARK_GREEN}/>
 
-                <LilButton text="EDIT" color={MY_GRAY} navigation={navigation}/>
+                <LilButton data={data} text="EDIT" color={MY_GRAY} navigation={navigation}/>
 
                 <LilButton data={data} text="REMOVE" color={MY_RED} action="STOCK"/>
             </View>

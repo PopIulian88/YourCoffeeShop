@@ -4,12 +4,20 @@ import BottomButton from "../../Components/BottomButton";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {MY_RED} from "../../Help_Box/Colors";
 import Spacer from "../../Components/Spacer";
-import {useState} from "react";
+import {useContext, useState} from "react";
+import {MyContext} from "../../Context/MyContext";
 
 export default function EditStock({navigation}) {
 
-        const [text, onChangeText] = useState('');
-        const [number, onChangeNumber] = useState('');
+    const {stockToEdit, setStockToEdit} = useContext(MyContext);
+
+
+    const [name, onChangeName] = useState(stockToEdit.name);
+    const [quantity, onChangeQuantity] = useState(stockToEdit.quantity.toString());
+    const [price, onChangePrice] = useState(stockToEdit.price.toString());
+    const [amount, onChangeAmount] = useState(stockToEdit.amount.toString());
+    const [unit, onChangeUnit] = useState(stockToEdit.unit);
+
 
     return (
         <View style={editStock_styles.container}>
@@ -36,8 +44,8 @@ export default function EditStock({navigation}) {
 
                     <TextInput
                         style={editStock_styles.inputBox}
-                        onChangeText={onChangeText}
-                        value={text}
+                        onChangeText={onChangeName}
+                        value={name}
                         placeholder="Type Name"
                         // keyboardType="numeric"
                     />
@@ -48,8 +56,8 @@ export default function EditStock({navigation}) {
 
                     <TextInput
                         style={editStock_styles.inputBox}
-                        onChangeText={onChangeNumber}
-                        value={number}
+                        onChangeText={onChangeQuantity}
+                        value={quantity}
                         placeholder="Type Quantity"
                         keyboardType="numeric"
                     />
@@ -60,8 +68,8 @@ export default function EditStock({navigation}) {
 
                     <TextInput
                         style={editStock_styles.inputBox}
-                        onChangeText={onChangeNumber}
-                        value={number}
+                        onChangeText={onChangePrice}
+                        value={price}
                         placeholder="Type Price"
                         keyboardType="numeric"
                     />
@@ -72,8 +80,8 @@ export default function EditStock({navigation}) {
 
                     <TextInput
                         style={editStock_styles.inputBox}
-                        onChangeText={onChangeNumber}
-                        value={number}
+                        onChangeText={onChangeAmount}
+                        value={amount}
                         placeholder="Type Amount"
                         keyboardType="numeric"
                     />
@@ -84,8 +92,8 @@ export default function EditStock({navigation}) {
 
                     <TextInput
                         style={editStock_styles.inputBox}
-                        onChangeText={onChangeText}
-                        value={text}
+                        onChangeText={onChangeUnit}
+                        value={unit}
                         placeholder="Type Unit"
                         // keyboardType="numeric"
                     />
@@ -95,7 +103,20 @@ export default function EditStock({navigation}) {
                 <Spacer/>
             </ScrollView>
 
-            <BottomButton text={"SAVE"} navigation={navigation} navTo={"BACK"}/>
+            {
+                (name === '' || quantity === '' || price === '' || amount === '' || unit === '') ?
+                <BottomButton text={"NOT DONE"} navigation={navigation} navTo={"BACK"} action={"STOCK"}/>
+                :
+                <BottomButton text={"SAVE"} navigation={navigation} navTo={"BACK"} action={"STOCK"}
+                              stockData={{
+                                  "id": stockToEdit.id,
+                                  "name": name,
+                                  "quantity": quantity,
+                                  "price": price,
+                                  "amount": amount,
+                                  "unit": unit
+                              }}/>
+            }
         </View>
     );
 

@@ -8,8 +8,14 @@ import {addStock_styles} from "../../Style/Admin_style/AddStock_styles";
 
 export default function AddStock({navigation}) {
 
-    const [text, onChangeText] = useState('');
-    const [number, onChangeNumber] = useState('');
+    const [name, onChangeName] = useState('');
+    const [quantity, onChangeQuantity] = useState('');
+    const [price, onChangePrice] = useState('');
+    const [amount, onChangeAmount] = useState('');
+    const [unit, onChangeUnit] = useState('');
+
+
+
 
     return (
         <View style={addStock_styles.container}>
@@ -36,8 +42,8 @@ export default function AddStock({navigation}) {
 
                     <TextInput
                         style={addStock_styles.inputBox}
-                        onChangeText={onChangeText}
-                        value={text}
+                        onChangeText={onChangeName}
+                        value={name}
                         placeholder="Type Name"
                         // keyboardType="numeric"
                     />
@@ -48,8 +54,8 @@ export default function AddStock({navigation}) {
 
                     <TextInput
                         style={addStock_styles.inputBox}
-                        onChangeText={onChangeNumber}
-                        value={number}
+                        onChangeText={onChangeQuantity}
+                        value={quantity}
                         placeholder="Type Quantity"
                         keyboardType="numeric"
                     />
@@ -60,8 +66,8 @@ export default function AddStock({navigation}) {
 
                     <TextInput
                         style={addStock_styles.inputBox}
-                        onChangeText={onChangeNumber}
-                        value={number}
+                        onChangeText={onChangePrice}
+                        value={price}
                         placeholder="Type Price"
                         keyboardType="numeric"
                     />
@@ -72,8 +78,8 @@ export default function AddStock({navigation}) {
 
                     <TextInput
                         style={addStock_styles.inputBox}
-                        onChangeText={onChangeNumber}
-                        value={number}
+                        onChangeText={onChangeAmount}
+                        value={amount}
                         placeholder="Type Amount"
                         keyboardType="numeric"
                     />
@@ -84,8 +90,8 @@ export default function AddStock({navigation}) {
 
                     <TextInput
                         style={addStock_styles.inputBox}
-                        onChangeText={onChangeText}
-                        value={text}
+                        onChangeText={onChangeUnit}
+                        value={unit}
                         placeholder="Type Unit"
                         // keyboardType="numeric"
                     />
@@ -95,7 +101,20 @@ export default function AddStock({navigation}) {
                 <Spacer/>
             </ScrollView>
 
-            <BottomButton text={"ADD"} navigation={navigation} navTo={"BACK"}/>
+            {
+                (name === '' || quantity === '' || price === '' || amount === '' || unit === '') ?
+                    <BottomButton text={"NOT DONE"} navigation={navigation} navTo={"BACK"} action={"STOCK"}/>
+                    :
+                    <BottomButton text={"ADD"} navigation={navigation} navTo={"BACK"} action={"STOCK"}
+                                  stockData={{
+                                      "name": name,
+                                      "quantity": quantity,
+                                      "price": price,
+                                      "amount": amount,
+                                      "unit": unit
+                                  }}/>
+
+            }
         </View>
     );
 

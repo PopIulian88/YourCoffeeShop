@@ -20,6 +20,31 @@ async function fetchDataDeleteStocks(id){
     return responseJson;
 }
 
+async function fetchDataUpdateStocks(id, name, quantity, price, amount, unit){
+    const responseJson = await fetch(
+        "http://" + MY_IP + ":8080/stock/update",
+        {
+            method: "PUT",
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({
+                "id": id,
+                "name": name,
+                "quantity": quantity,
+                "price": price,
+                "amount": amount,
+                "unit": unit
+            })
+        });
+
+    if(responseJson.ok){
+        console.log("Update corect");
+    }else{
+        console.log("Update STOCK fail");
+    }
+}
+
 async function fetchDataGetStocks(){
     const responseJson = await fetch(
         "http://" + MY_IP + ":8080/stocks",
@@ -38,15 +63,17 @@ export default function LilButton({data, text="null", color="black", navigation,
         const [modalVisible, setModalVisible] = useState(false);
 
         const {stocksData, setStocksData} = useContext(MyContext);
+        const {stockToEdit, setStockToEdit} = useContext(MyContext);
 
 
-        const [number, onChangeNumber] = useState('');
+        const [addModalNumber, setAddModalNumber] = useState("");
 
     return (
         <TouchableOpacity style={[lilButton_styles.container, {backgroundColor: color}]} onPress={() => {
             if(text === "ADD"){
                 setModalVisible(true);
             }else if(text === "EDIT"){
+                setStockToEdit(data);
                 navigation.navigate("EditStock");
             }else{
                 if (action === "STOCK") {
@@ -81,8 +108,8 @@ export default function LilButton({data, text="null", color="black", navigation,
 
                         <TextInput
                             style={modal_styles.inputBox}
-                            onChangeText={onChangeNumber}
-                            value={number}
+                            onChangeText={setAddModalNumber}
+                            value={addModalNumber}
                             placeholder="Type how many"
                             keyboardType="numeric"
                         />
@@ -91,7 +118,27 @@ export default function LilButton({data, text="null", color="black", navigation,
 
                         <TouchableOpacity style={modal_styles.saveChanges} onPress={() => {
                             setModalVisible(false);
-                            onChangeNumber('');
+
+                            if(addModalNumber !== "") {
+                                fetchDataUpdateStocks(
+                                    data.id,
+                                    data.name,
+                                    (parseFloat(data.quantity) + parseFloat(addModalNumber)),
+                                    data.price,
+                                    data.amount,
+                                    data.unit
+                                ).then(r => {
+                                    console.log("SUCCES UPDATE STOCK");
+
+                                    fetchDataGetStocks().then(respons => {
+                                        setStocksData(respons)
+                                    })
+                                }).catch(e => {
+                                    console.log(e);
+                                });
+                            }
+
+                            setAddModalNumber("");
                         }}>
                             <Text style={modal_styles.saveButton}>ADD</Text>
                         </TouchableOpacity>
