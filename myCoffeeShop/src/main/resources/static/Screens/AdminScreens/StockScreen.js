@@ -3,8 +3,9 @@ import {stock_styles} from "../../Style/Admin_style/Stock_styles";
 import {MaterialIcons} from "@expo/vector-icons";
 import StockComponent from "../../Components/StockComponent";
 import {MY_IP} from "../../Help_Box/IP_help";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import Spacer from "../../Components/Spacer";
+import {MyContext} from "../../Context/MyContext";
 
 
 async function fetchDataGetStocks(){
@@ -23,15 +24,7 @@ async function fetchDataGetStocks(){
 
 export default function StockScreen({navigation}) {
 
-    const [stocksData, setStocksData] = useState([]);
-
-
-    const refreshStock = () => {
-            fetchDataGetStocks().then(respons => {
-                setStocksData(respons)
-            })
-            console.log(stocksData);
-    }
+    const {stocksData, setStocksData} = useContext(MyContext);
 
     const renderDynamicStock = () => {
         return stocksData.map((item) => {
@@ -78,10 +71,6 @@ export default function StockScreen({navigation}) {
                         style={stock_styles.plusIcon}
                     />
                 </TouchableOpacity>
-
-                <Spacer height={5}/>
-
-                <Button title={"Refresh"} onPress={() => refreshStock()}/>
             </View>
 
 

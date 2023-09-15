@@ -1,9 +1,10 @@
 import {Text, View, TouchableOpacity, Modal, Alert, Pressable, TextInput} from 'react-native';
 import {lilButton_styles} from "../Style/Components_style/LilButton_styles";
-import {useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {modal_styles} from "../Style/Modal_styles";
 import Spacer from "./Spacer";
 import {MY_IP} from "../Help_Box/IP_help";
+import {MyContext} from "../Context/MyContext";
 
 
 async function fetchDataDeleteStocks(id){
@@ -19,9 +20,25 @@ async function fetchDataDeleteStocks(id){
     return responseJson;
 }
 
+async function fetchDataGetStocks(){
+    const responseJson = await fetch(
+        "http://" + MY_IP + ":8080/stocks",
+        {
+            method: "GET",
+            headers: {
+                'Content-Type' : 'application/json'
+            }
+        });
+
+    return await responseJson.json();
+}
+
 export default function LilButton({data, text="null", color="black", navigation, action="null"}) {
 
         const [modalVisible, setModalVisible] = useState(false);
+
+        const {stocksData, setStocksData} = useContext(MyContext);
+
 
         const [number, onChangeNumber] = useState('');
 
@@ -34,8 +51,12 @@ export default function LilButton({data, text="null", color="black", navigation,
             }else{
                 if (action === "STOCK") {
                     fetchDataDeleteStocks(data.id).then(r => {
-                        console.log("SUCCES DELETE STOCK")
-                        Alert.alert("Stock DELETE", "Please press the refresh button");
+                        console.log("SUCCES DELETE STOCK");
+
+                        fetchDataGetStocks().then(respons => {
+                            setStocksData(respons)
+                        })
+
                     }).catch(e => {
                         console.log(e);
                     });
