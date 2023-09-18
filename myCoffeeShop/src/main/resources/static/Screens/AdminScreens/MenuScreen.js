@@ -4,10 +4,55 @@ import {menu_styles} from "../../Style/Admin_style/Menu_styles";
 import MenuComponent from "../../Components/MenuComponent";
 import Spacer from "../../Components/Spacer";
 import {BACKGROUND_COLOR, DARK_GREEN} from "../../Help_Box/Colors";
-import {useState} from "react";
+import {useContext, useEffect, useState} from "react";
+import {MY_IP} from "../../Help_Box/IP_help";
+import {MyContext} from "../../Context/MyContext";
+
+
+async function fetchDataGetProducts(){
+    const responseJson = await fetch(
+        "http://" + MY_IP + ":8080/products",
+        {
+            method: "GET",
+            headers: {
+                'Content-Type' : 'application/json'
+            }
+        });
+
+    return await responseJson.json();
+}
+
+
 
 export default function MenuScreen({navigation}) {
     const [curentLine, setCurentLine] = useState(1);
+
+    const {productData, setProductData} = useContext(MyContext);
+
+    const renderDynamicProduct = () => {
+        return productData.map((item) => {
+            return (
+                <MenuComponent
+                    key={item.id}
+                    data={item}
+
+                    name={item.name}
+                    price={item.price}
+                    photoLink={item.photoLink}
+
+                    navigation={navigation}
+                />
+            );
+        });
+    };
+
+
+    useEffect(() => {
+        fetchDataGetProducts().then(respons => {
+            setProductData(respons)
+        })
+        console.log(productData);
+    }, [])
 
     return (
         <View style={menu_styles.container}>
@@ -48,16 +93,7 @@ export default function MenuScreen({navigation}) {
             </View>
 
             <ScrollView style={menu_styles.containerScrollView} contentContainerStyle={{alignItems: "center"}} >
-                <MenuComponent name={"Ice Coffee"} price={12}  navigation={navigation}
-                               photoLink="https://images.immediate.co.uk/production/volatile/sites/2/2021/08/coldbrew-iced-latte-with-my-recipe-photo-by-@ellamiller_photo-f1e3d9e.jpg?quality=90&resize=556,505"/>
-
-                <MenuComponent name={"Latte"} price={7} navigation={navigation}
-                               photoLink="https://www.caffesociety.co.uk/assets/recipe-images/latte-small.jpg"/>
-
-                <MenuComponent navigation={navigation}/>
-
-                <MenuComponent navigation={navigation}/>
-
+                {renderDynamicProduct()}
             </ScrollView>
         </View>
     );

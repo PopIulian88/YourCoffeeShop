@@ -5,7 +5,8 @@ import Spacer from "./Spacer";
 import {DARK_GREEN, MY_RED} from "../Help_Box/Colors";
 
 
-export default function IngredientTag({text="null", cantiti=0}) {
+export default function IngredientTag({text="null", cantiti=0, setIncredients, incredients,
+                                          setQuantitis, quantitis, indexIngredient}) {
     return (
         <View style={ingredientTag_styles.container}>
             <Text style={ingredientTag_styles.text}>{text}</Text>
@@ -14,7 +15,12 @@ export default function IngredientTag({text="null", cantiti=0}) {
             <Spacer height={5}/>
 
             <TouchableOpacity onPress={() => {
-                alert("Delete")
+
+                const updatedIngredient = incredients.filter((item, index) => index !== indexIngredient);
+                setIncredients(updatedIngredient);
+
+                const updateQuantiti = quantitis.filter((item, index) => index !== indexIngredient);
+                setQuantitis(updateQuantiti);
             }}>
                 <Feather
                     name="x"

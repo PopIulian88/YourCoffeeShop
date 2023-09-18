@@ -68,11 +68,62 @@ async function fetchDataGetStocks(){
     return await responseJson.json();
 }
 
+
+async function fetchDataGetProducts(){
+    const responseJson = await fetch(
+        "http://" + MY_IP + ":8080/products",
+        {
+            method: "GET",
+            headers: {
+                'Content-Type' : 'application/json'
+            }
+        });
+
+    return await responseJson.json();
+}
+async function fetchDataAddProduct(myName, description, price, incredients, incredients_quantiti, photoLink){
+    // console.log("------------------");
+    // console.log(myName);
+    // console.log(description);
+    // console.log(price);
+    // console.log(incredients);
+    // console.log(incredients_quantiti);
+    // console.log(photoLink);
+    // console.log("------------------");
+
+    const responseJson = await fetch(
+        "http://" + MY_IP + ":8080/addProduct",
+        {
+            method: "POST",
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({
+                "name": myName,
+                "description": description,
+                "price": price,
+                "incredients": incredients,
+                "incredients_quantiti": incredients_quantiti,
+                "photoLink": photoLink
+            })
+        });
+
+
+    if(responseJson.ok){
+        console.log("Salvare corecta");
+    }else{
+        console.log("Add PRODUCT fail");
+    }
+}
+
 export default function BottomButton({text="null", navigation, navTo="BACK", action='',
                                          stockData={}}) {
 
 
     const {stocksData, setStocksData} = useContext(MyContext);
+
+    const {productData, setProductData} = useContext(MyContext);
+
 
     return (
         <View style={bottomButton_styles.container}>
@@ -102,8 +153,22 @@ export default function BottomButton({text="null", navigation, navTo="BACK", act
 
                                     navigation.goBack();
                                 }).catch(e => console.log(e))
-                            }else if(text === "PRODUCT") {
+                            }else if(action === "PRODUCT") {
+                                console.log(stockData);
+                                fetchDataAddProduct(
+                                    stockData.name,
+                                    stockData.description,
+                                    stockData.price,
+                                    stockData.incredients,
+                                    stockData.incredients_quantiti,
+                                    stockData.photoLink
+                                ).then(r => {
+                                    fetchDataGetProducts().then(respons => {
+                                        setProductData(respons)
+                                    })
 
+                                    navigation.goBack();
+                                })
                             }else{
                                 console.log("No add action");
                             }

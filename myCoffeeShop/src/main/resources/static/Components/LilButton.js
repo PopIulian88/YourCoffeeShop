@@ -58,12 +58,27 @@ async function fetchDataGetStocks(){
     return await responseJson.json();
 }
 
+async function fetchDataGetProducts(){
+    const responseJson = await fetch(
+        "http://" + MY_IP + ":8080/products",
+        {
+            method: "GET",
+            headers: {
+                'Content-Type' : 'application/json'
+            }
+        });
+
+    return await responseJson.json();
+}
+
 export default function LilButton({data, text="null", color="black", navigation, action="null"}) {
 
         const [modalVisible, setModalVisible] = useState(false);
 
         const {stocksData, setStocksData} = useContext(MyContext);
         const {stockToEdit, setStockToEdit} = useContext(MyContext);
+
+        const {productData, setProductData} = useContext(MyContext);
 
 
         const [addModalNumber, setAddModalNumber] = useState("");
@@ -82,6 +97,10 @@ export default function LilButton({data, text="null", color="black", navigation,
 
                         fetchDataGetStocks().then(respons => {
                             setStocksData(respons)
+                        })
+
+                        fetchDataGetProducts().then(respons => {
+                            setProductData(respons)
                         })
 
                     }).catch(e => {

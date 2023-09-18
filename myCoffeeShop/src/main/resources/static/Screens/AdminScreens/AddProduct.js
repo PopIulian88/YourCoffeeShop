@@ -1,27 +1,75 @@
 import {View, Text, ScrollView, TouchableOpacity, TextInput} from "react-native";
 import BottomButton from "../../Components/BottomButton";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
-import {MY_RED} from "../../Help_Box/Colors";
+import {MY_GRAY, MY_RED} from "../../Help_Box/Colors";
 import Spacer from "../../Components/Spacer";
-import {useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {addProduct_styles} from "../../Style/Admin_style/AddProduct_styles";
 import {Dropdown} from "react-native-element-dropdown";
 import IngredientTag from "../../Components/IngredientTag";
+import {MY_IP} from "../../Help_Box/IP_help";
+import {MyContext} from "../../Context/MyContext";
+
+
+async function fetchDataGetStocks(){
+    const responseJson = await fetch(
+        "http://" + MY_IP + ":8080/stocks",
+        {
+            method: "GET",
+            headers: {
+                'Content-Type' : 'application/json'
+            }
+        });
+
+    return await responseJson.json();
+}
 
 export default function AddProduct({navigation}) {
 
-    const [text, onChangeText] = useState('');
-    const [number, onChangeNumber] = useState('');
+    const [name, onChangeName] = useState('');
+    const [descripsion, onChangeDescripsion] = useState('');
+    const [price, onChangePrice] = useState('');
+    const [photoLink, onChangePhotoLink] = useState('');
 
-    const [value, setValue] = useState(null);
+    const [incredient, setIncredient] = useState(null);
+    const [incredient_qantiti, onChangeIncredient_Qantiti] = useState('');
+
+    const [incredients, setIncredients] = useState([]);
+    const [quantitis, setQuantitis] = useState([])
+
     const [isFocus, setIsFocus] = useState(false);
-    const data = [
-        { label: 'Coffee Beans', value: '1' },
-        { label: 'Milk', value: '2' },
-        { label: 'null3', value: '3' },
-        { label: 'null4', value: '4' },
-        { label: 'null5', value: '5' },
-    ];
+
+    const {stocksData, setStocksData} = useContext(MyContext);
+
+
+    const renderDynamicIngredient = () => {
+        return incredients.map((item, index) => {
+            return (
+                <>
+                <IngredientTag
+                    key={item.id}
+                    data={item}
+
+                    setIncredients={setIncredients}
+                    incredients={incredients}
+                    setQuantitis={setQuantitis}
+                    quantitis={quantitis}
+                    indexIngredient={index}
+                    text={item.name}
+                    cantiti={quantitis[index]}
+                />
+                <Spacer height={5}/>
+                </>
+            );
+        });
+    };
+
+    useEffect(() => {
+        fetchDataGetStocks().then(respons => {
+            setStocksData(respons)
+        })
+        console.log(stocksData);
+    }, [])
 
     return (
         <View style={addProduct_styles.container}>
@@ -48,8 +96,8 @@ export default function AddProduct({navigation}) {
 
                     <TextInput
                         style={addProduct_styles.inputBox}
-                        onChangeText={onChangeText}
-                        value={text}
+                        onChangeText={onChangeName}
+                        value={name}
                         placeholder="Type Name"
                         // keyboardType="numeric"
                     />
@@ -60,8 +108,8 @@ export default function AddProduct({navigation}) {
 
                     <TextInput
                         style={addProduct_styles.inputBox}
-                        onChangeText={onChangeText}
-                        value={text}
+                        onChangeText={onChangeDescripsion}
+                        value={descripsion}
                         placeholder="Type Description"
                         // keyboardType="numeric"
                     />
@@ -72,8 +120,8 @@ export default function AddProduct({navigation}) {
 
                     <TextInput
                         style={addProduct_styles.inputBox}
-                        onChangeText={onChangeNumber}
-                        value={number}
+                        onChangeText={onChangePrice}
+                        value={price}
                         placeholder="Type Price"
                         keyboardType="numeric"
                     />
@@ -84,8 +132,8 @@ export default function AddProduct({navigation}) {
 
                     <TextInput
                         style={addProduct_styles.inputBox}
-                        onChangeText={onChangeText}
-                        value={text}
+                        onChangeText={onChangePhotoLink}
+                        value={photoLink}
                         placeholder="Type Photo Link"
                         // keyboardType="numeric"
                     />
@@ -96,22 +144,22 @@ export default function AddProduct({navigation}) {
 
                     <Dropdown
                         style={addProduct_styles.inputBox}
-                        data={data}
+                        data={stocksData}
                         search
                         placeholderStyle={addProduct_styles.placeholderStyle}
                         selectedTextStyle={addProduct_styles.selectedTextStyle}
                         inputSearchStyle={addProduct_styles.inputSearchStyle}
                         iconStyle={addProduct_styles.iconStyle}
 
-                        labelField="label"
-                        valueField="value"
+                        labelField="name"
+                        valueField="id"
                         placeholder={!isFocus ? 'Select item' : '...'}
                         searchPlaceholder="Search..."
-                        value={value}
+                        value={incredient}
 
                         onChange={item => {
                             console.log(item);
-                            setValue(item.value);
+                            setIncredient(item);
                             setIsFocus(false);
                         }}
 
@@ -125,31 +173,51 @@ export default function AddProduct({navigation}) {
 
                         <TextInput
                             style={addProduct_styles.inputBox}
-                            onChangeText={onChangeNumber}
-                            value={number}
+                            onChangeText={onChangeIncredient_Qantiti}
+                            value={incredient_qantiti}
                             placeholder="Type how many"
                             keyboardType="numeric"
                         />
 
                         <Spacer height={5}/>
 
-                        <TouchableOpacity style={addProduct_styles.addIncredientButton} onPress={() => {
-                            alert("Ingredient added");
-                            setValue(null);
-                            onChangeNumber('')
-                        }}>
-                            <Text style={addProduct_styles.addIncredientText}>Add</Text>
-                        </TouchableOpacity>
+                        {
+                            (incredient === null || incredient_qantiti === '') ?
+
+                            <TouchableOpacity style={[addProduct_styles.addIncredientButton, {backgroundColor: MY_GRAY}]}
+                                              onPress={() => {
+                                alert("Complete the fields first");
+
+                            }}>
+
+                                <Text style={addProduct_styles.addIncredientText}>Add</Text>
+                            </TouchableOpacity>
+                                :
+                                <TouchableOpacity style={addProduct_styles.addIncredientButton} onPress={() => {
+
+                                    if(incredients.find((object) => object.id === incredient.id)) {
+                                        alert("Deja adaugat");
+                                    }else{
+                                        setIncredients(prevState => [...prevState, incredient]);
+                                        setQuantitis(prevState => [...prevState, parseFloat(incredient_qantiti)]);
+
+                                        setIncredient(null);
+                                        onChangeIncredient_Qantiti('')
+                                    }
+
+                                }}>
+
+                                    <Text style={addProduct_styles.addIncredientText}>Add</Text>
+                                </TouchableOpacity>
+
+                        }
 
                     </View>
 
                     <Spacer height={5}/>
 
                     <View style={{flexDirection: "row", flexWrap: "wrap"}}>
-                        <IngredientTag text={"Milk"} cantiti={0.25}/>
-                        <Spacer height={5}/>
-                        <IngredientTag text={"Coffee Beans"} cantiti={0.01}/>
-                        <Spacer height={5}/>
+                        {renderDynamicIngredient()}
 
                     </View>
                 </View>
@@ -157,7 +225,21 @@ export default function AddProduct({navigation}) {
                 <Spacer/>
             </ScrollView>
 
-            <BottomButton text={"ADD"} navigation={navigation} navTo={"BACK"}/>
+            {
+
+                (name === '' || descripsion === '' || price === '' || incredients.length === 0) ?
+                <BottomButton text={"NOT DONE"} navigation={navigation} navTo={"BACK"} action={"PRODUCT"}/>
+                :
+                <BottomButton text={"ADD"} navigation={navigation} navTo={"BACK"} action={"PRODUCT"}
+                              stockData={{
+                                  "name": name,
+                                  "description": descripsion,
+                                  "price": parseFloat(price),
+                                  "incredients": incredients,
+                                  "incredients_quantiti": quantitis,
+                                  "photoLink": photoLink
+                              }}/>
+            }
         </View>
     );
 

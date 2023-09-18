@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -25,8 +26,11 @@ public class Product {
 
     private double price;
 
-    @OneToMany
+    @ManyToMany
     private List<Stock> incredients;
+
+    @ElementCollection
+    private List<Double> incredients_quantiti ;
 
     private String photoLink;
 }

@@ -27,6 +27,7 @@ export default function App() {
 
     const [stocksData, setStocksData] = useState([]);
     const [stockToEdit, setStockToEdit] = useState({});
+    const [productData, setProductData] = useState([]);
 
 
     useEffect(() => {
@@ -38,7 +39,11 @@ export default function App() {
 
 
         return (
-            <MyContext.Provider value={{stocksData, setStocksData, stockToEdit, setStockToEdit}}>
+            <MyContext.Provider value={{
+                stocksData, setStocksData,
+                stockToEdit, setStockToEdit,
+                productData, setProductData
+            }}>
                 <NavigationContainer>
                     <Stack.Navigator initialRouteName={"Welcome"}>
                         <Stack.Screen options={{headerShown:false}} name="Welcome" component={Welcome}/>
