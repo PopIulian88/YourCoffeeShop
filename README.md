@@ -40,7 +40,9 @@ On the employee's application, you can see 3 types of tables in the store. The b
 </div>
 
 ## Used technologies
-  Ceva ceva
+  Frontend: React native 
+  <br></br>
+  Backend: Java Spring, MySQL
 
 ## How can i run it?
-  Altceva altceva
+  To play this application you must have installed: Node.js, ...
