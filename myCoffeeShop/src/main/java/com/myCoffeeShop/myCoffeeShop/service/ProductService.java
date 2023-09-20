@@ -47,6 +47,7 @@ public class ProductService {
         existingProduct.setDescription(product.getDescription());
         existingProduct.setPrice(product.getPrice());
         existingProduct.setIncredients(product.getIncredients());
+        existingProduct.setIncredients_quantiti(product.getIncredients_quantiti());
         existingProduct.setPhotoLink(product.getPhotoLink());
 
         return productRepository.save(existingProduct);

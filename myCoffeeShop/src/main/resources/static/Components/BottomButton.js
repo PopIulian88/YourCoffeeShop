@@ -116,6 +116,34 @@ async function fetchDataAddProduct(myName, description, price, incredients, incr
     }
 }
 
+async function fetchDataUpdateProduct(myId, myName, description, price, incredients, incredients_quantiti, photoLink){
+
+    const responseJson = await fetch(
+        "http://" + MY_IP + ":8080/product/update",
+        {
+            method: "PUT",
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({
+                "id": myId,
+                "name": myName,
+                "description": description,
+                "price": price,
+                "incredients": incredients,
+                "incredients_quantiti": incredients_quantiti,
+                "photoLink": photoLink
+            })
+        });
+
+
+    if(responseJson.ok){
+        console.log("Salvare corecta");
+    }else{
+        console.log("Add PRODUCT fail");
+    }
+}
+
 export default function BottomButton({text="null", navigation, navTo="BACK", action='',
                                          stockData={}}) {
 
@@ -138,60 +166,101 @@ export default function BottomButton({text="null", navigation, navTo="BACK", act
                     <TouchableOpacity style={bottomButton_styles.containerButton} onPress={() => {
                         if(text === "ADD"){
                             if(action === "STOCK"){
-                                fetchDataAddStocks(
-                                    stockData.name,
-                                    stockData.quantity,
-                                    stockData.price,
-                                    stockData.amount,
-                                    stockData.unit
-                                ).then(r => {
 
-                                    //This if for update the state
-                                    fetchDataGetStocks().then(respons => {
-                                        setStocksData(respons)
-                                    });
+                                if(stocksData.find((element) => element.name === stockData.name)) {
+                                    alert("Already added");
+                                }else {
+                                    fetchDataAddStocks(
+                                        stockData.name,
+                                        stockData.quantity,
+                                        stockData.price,
+                                        stockData.amount,
+                                        stockData.unit
+                                    ).then(r => {
 
-                                    navigation.goBack();
-                                }).catch(e => console.log(e))
+                                        //This if for update the state
+                                        fetchDataGetStocks().then(respons => {
+                                            setStocksData(respons)
+                                        });
+
+                                        navigation.goBack();
+                                    }).catch(e => console.log(e))
+                                }
                             }else if(action === "PRODUCT") {
-                                console.log(stockData);
-                                fetchDataAddProduct(
-                                    stockData.name,
-                                    stockData.description,
-                                    stockData.price,
-                                    stockData.incredients,
-                                    stockData.incredients_quantiti,
-                                    stockData.photoLink
-                                ).then(r => {
-                                    fetchDataGetProducts().then(respons => {
-                                        setProductData(respons)
-                                    })
 
-                                    navigation.goBack();
-                                })
+                                if(productData.find((element) => element.name === stockData.name)) {
+                                    alert("Already added");
+                                }else {
+                                    fetchDataAddProduct(
+                                        stockData.name,
+                                        stockData.description,
+                                        stockData.price,
+                                        stockData.incredients,
+                                        stockData.incredients_quantiti,
+                                        stockData.photoLink
+                                    ).then(r => {
+                                        fetchDataGetProducts().then(respons => {
+                                            setProductData(respons)
+                                        })
+
+                                        navigation.goBack();
+                                    })
+                                }
                             }else{
                                 console.log("No add action");
                             }
                         }else if(text === "SAVE") {
                             if(action === "STOCK") {
-                                fetchDataUpdateStocks(
-                                    stockData.id,
-                                    stockData.name,
-                                    stockData.quantity,
-                                    stockData.price,
-                                    stockData.amount,
-                                    stockData.unit
-                                ).then(r => {
 
-                                    //This if for update the state
-                                    fetchDataGetStocks().then(respons => {
-                                        setStocksData(respons)
-                                    });
+                                console.log(stocksData.filter((element) => element.name === stockData.name).length)
 
-                                    navigation.goBack();
-                                }).catch(e => console.log(e))
+                                if(stocksData.find((element) => (element.name === stockData.name && element.id !== stockData.id))) {
+                                    alert("Already added");
+                                }else {
+                                    fetchDataUpdateStocks(
+                                        stockData.id,
+                                        stockData.name,
+                                        stockData.quantity,
+                                        stockData.price,
+                                        stockData.amount,
+                                        stockData.unit
+                                    ).then(r => {
+
+                                        //This if for update the state
+                                        fetchDataGetStocks().then(respons => {
+                                            setStocksData(respons)
+                                        });
+
+                                        fetchDataGetProducts().then(respons => {
+                                            setProductData(respons)
+                                        })
+
+                                        navigation.goBack();
+                                    }).catch(e => console.log(e))
+                                }
                             }else if(action === "PRODUCT"){
 
+                                if(productData.find((element) => (element.name === stockData.name && element.id !== stockData.id))) {
+                                    alert("Already added");
+                                }else {
+                                    fetchDataUpdateProduct(
+                                        stockData.id,
+                                        stockData.name,
+                                        stockData.description,
+                                        stockData.price,
+                                        stockData.incredients,
+                                        stockData.incredients_quantiti,
+                                        stockData.photoLink
+                                    ).then(r => {
+
+                                        //This if for update the state
+                                        fetchDataGetProducts().then(respons => {
+                                            setProductData(respons)
+                                        })
+
+                                        navigation.goBack();
+                                    }).catch(e => console.log(e))
+                                }
                             }else {
                                 navigation.goBack();
                                 console.log("No add action");

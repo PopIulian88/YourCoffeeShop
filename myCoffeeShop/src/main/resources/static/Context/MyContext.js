@@ -8,4 +8,6 @@ export const MyContext = createContext({
     setStockToEdit: () => {},
     productData: [],
     setProductData: () => {},
+    productToEdit: {},
+    setProductToEdit: () => {},
 })

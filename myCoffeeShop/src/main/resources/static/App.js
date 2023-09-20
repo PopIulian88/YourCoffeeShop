@@ -28,7 +28,7 @@ export default function App() {
     const [stocksData, setStocksData] = useState([]);
     const [stockToEdit, setStockToEdit] = useState({});
     const [productData, setProductData] = useState([]);
-
+    const [productToEdit, setProductToEdit] = useState({});
 
     useEffect(() => {
         fetchDataGetStocks().then(respons => {
@@ -42,7 +42,8 @@ export default function App() {
             <MyContext.Provider value={{
                 stocksData, setStocksData,
                 stockToEdit, setStockToEdit,
-                productData, setProductData
+                productData, setProductData,
+                productToEdit, setProductToEdit
             }}>
                 <NavigationContainer>
                     <Stack.Navigator initialRouteName={"Welcome"}>
