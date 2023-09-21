@@ -50,6 +50,6 @@ On the employee's application, you can see 3 types of tables in the store. The b
 ## How can i run it?
   To play this application you must have installed: Node.js, Java 17, Maven, Docker.
   
-  First of all, open _docker-compose.yml_ and run it, to create the server and the DB in Docker. After that go to _./src/main/java/com/myCoffeeShop/myCoffeeShop_ and run it to create the DB.
+  First of all, open _docker-compose.yml_ and run it, to create the server and the DB in Docker. After that go to _./src/main/java/com/myCoffeeShop/myCoffeeShop/MyCoffeeShopApplication.java_ and run it to create the DB.
   
   After running the backend go to _.src/main/resources/static_ and open a terminal in here. There you will type "npm install" and "npm start" to start the application. On your mobile phone scan the QR code on expoGo application and enjoi the app.
