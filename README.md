@@ -30,19 +30,26 @@ These are the edit and add pages, simple but do the job
   <img src="ReadMe_photos/Admin_editStock.jpeg" height="450" width="215">
 </div>
 
-On the employee's application, you can see 3 types of tables in the store. The black ones represent the tables that are waiting for customers, the green ones represent the tables that have already been ordered, and the red ones mean that the bill has been paid and the table must be cleaned. If the employee clicks on the black table, the menu will open, where he will add everything the customer orders to the basket. After adding everything, he will read the order, and if everything is ok, he will send the order, which will make the table green. If you click on a green table, the bill will appear, and after paying it, the table will turn red. After the table has been cleaned, press the red table, and it turns black again.
-
+On the employee's application, you can see 3 types of tables in the store. The black ones represent the tables that are waiting for customers, the green ones represent the tables that have already been ordered, and the red ones mean that the bill has been paid and the table must be cleaned. If the employee clicks on the black table, the menu will open, where he will add everything the customer orders to the basket. After adding everything, he will read the order, and if everything is ok, he will send the order, which will make the table green.
 <div style="flex-direction:row;">
   <img src="ReadMe_photos/Employee_shop.jpeg" height="450" width="215">
   <img src="ReadMe_photos/Employee_orderTable.jpeg" height="450" width="215">
   <img src="ReadMe_photos/Employee_finishOrder.jpeg" height="450" width="215">
-  <img src="ReadMe_photos/Employee_bill.jpeg" height="450" width="215">
 </div>
+
+ If you click on a green table, the bill will appear, and after paying it, the table will turn red. After the table has been cleaned, press the red table, and it turns black again.
+
+<img src="ReadMe_photos/Employee_bill.jpeg" height="450" width="215">
+
 
 ## Used technologies
   Frontend: React native 
   <br></br>
-  Backend: Java Spring, MySQL
+  Backend: Java Spring, Docker, MySQL
 
 ## How can i run it?
-  To play this application you must have installed: Node.js, ...
+  To play this application you must have installed: Node.js, Java 17, Maven, Docker.
+  
+  First of all, open _docker-compose.yml_ and run it, to create the server and the DB in Docker. After that go to _./src/main/java/com/myCoffeeShop/myCoffeeShop_ and run it to create the DB.
+  
+  After running the backend go to _.src/main/resources/static_ and open a terminal in here. There you will type "npm install" and "npm start" to start the application. On your mobile phone scan the QR code on expoGo application and enjoi the app.
