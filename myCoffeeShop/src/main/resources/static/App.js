@@ -23,18 +23,61 @@ async function fetchDataGetStocks(){
     return await responseJson.json();
 }
 
+
+async function fetchDataInitProfile(curentProfit, historic){
+
+    const responseJson = await fetch(
+        "http://" + MY_IP + ":8080/initProfile",
+        {
+            method: "POST",
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({
+                "curentProfit": curentProfit,
+                "historic": historic
+            })
+        });
+
+
+    if(responseJson.ok){
+        console.log("Salvare corecta");
+    }else{
+        console.log("Add PRODUCT fail");
+    }
+}
+
+async function fetchDataGetProfit(){
+    const responseJson = await fetch(
+        "http://" + MY_IP + ":8080/profits",
+        {
+            method: "GET",
+            headers: {
+                'Content-Type' : 'application/json'
+            }
+        });
+
+    return await responseJson.json();
+}
+
 export default function App() {
 
     const [stocksData, setStocksData] = useState([]);
     const [stockToEdit, setStockToEdit] = useState({});
     const [productData, setProductData] = useState([]);
     const [productToEdit, setProductToEdit] = useState({});
+    const [profitData, setProfitData] = useState([]);
 
     useEffect(() => {
         fetchDataGetStocks().then(respons => {
             setStocksData(respons)
-        })
-        console.log(stocksData);
+        });
+
+        fetchDataInitProfile(0, []).then(respons => {
+
+        });
+
+        // console.log(stocksData);
     }, [])
 
 
@@ -43,7 +86,8 @@ export default function App() {
                 stocksData, setStocksData,
                 stockToEdit, setStockToEdit,
                 productData, setProductData,
-                productToEdit, setProductToEdit
+                productToEdit, setProductToEdit,
+                profitData, setProfitData
             }}>
                 <NavigationContainer>
                     <Stack.Navigator initialRouteName={"Welcome"}>

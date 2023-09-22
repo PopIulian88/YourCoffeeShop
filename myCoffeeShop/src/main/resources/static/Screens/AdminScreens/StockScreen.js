@@ -21,10 +21,25 @@ async function fetchDataGetStocks(){
     return await responseJson.json();
 }
 
+async function fetchDataGetProfit(){
+    const responseJson = await fetch(
+        "http://" + MY_IP + ":8080/profits",
+        {
+            method: "GET",
+            headers: {
+                'Content-Type' : 'application/json'
+            }
+        });
+
+    return await responseJson.json();
+}
+
 
 export default function StockScreen({navigation}) {
 
     const {stocksData, setStocksData} = useContext(MyContext);
+    const {profitData, setProfitData} = useContext(MyContext);
+
 
     const renderDynamicStock = () => {
         return stocksData.map((item) => {
@@ -49,7 +64,11 @@ export default function StockScreen({navigation}) {
         fetchDataGetStocks().then(respons => {
             setStocksData(respons)
         })
-        console.log(stocksData);
+
+        fetchDataGetProfit().then(respons => {
+            setProfitData(respons)
+        })
+        // console.log(stocksData);
     }, [])
 
     return (

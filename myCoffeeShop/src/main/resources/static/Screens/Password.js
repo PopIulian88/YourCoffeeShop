@@ -1,4 +1,4 @@
-import {Image, Text, View} from 'react-native';
+import {Image, Platform, Text, View} from 'react-native';
 import {password_styles} from "../Style/Password_styles";
 import {OtpInput} from 'react-native-otp-entry';
 import TextButton from "../Components/TextButton";
@@ -11,7 +11,6 @@ const CORECT_PASSWORD = "250804";
 
 export default function Password({ navigation }) {
     const [password, setPassword] = useState("")
-
 
     return (
         <View style={password_styles.container}>

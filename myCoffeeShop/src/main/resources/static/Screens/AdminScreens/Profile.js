@@ -4,8 +4,61 @@ import {MaterialCommunityIcons, MaterialIcons, Octicons} from "@expo/vector-icon
 import {MY_RED} from "../../Help_Box/Colors";
 import Spacer from "../../Components/Spacer";
 import ProfitCard from "../../Components/ProfitCard";
+import {useContext, useEffect} from "react";
+import {MyContext} from "../../Context/MyContext";
+import {MY_IP} from "../../Help_Box/IP_help";
+import MenuComponent from "../../Components/MenuComponent";
+
+
+async function fetchDataGetProfit(){
+    const responseJson = await fetch(
+        "http://" + MY_IP + ":8080/profits",
+        {
+            method: "GET",
+            headers: {
+                'Content-Type' : 'application/json'
+            }
+        });
+
+    return await responseJson.json();
+}
 
 export default function Profile({navigation}) {
+
+    const {profitData, setProfitData} = useContext(MyContext);
+
+        fetchDataGetProfit().then(respons => {
+            setProfitData(respons);
+        })
+
+        // console.log(profitData[0]);
+
+    const renderDynamicProfit = () => {
+        return (profitData[0].historic).map((item) => {
+            return (
+                <>
+                {
+                    (item > 0) ?
+                    <ProfitCard
+                        key={item.id}
+                        data={item}
+
+                        text={"Profit"}
+                        money={item}
+                    /> : <ProfitCard
+                        key={item.id}
+                        data={item}
+
+                        text={"Loss"}
+                        money={-item}
+                    />
+                }
+                </>
+            );
+        });
+    };
+
+
     return (
         <View style={profile_styles.container}>
             <View style={profile_styles.containerHeader}>
@@ -32,7 +85,7 @@ export default function Profile({navigation}) {
 
             <View style={profile_styles.containerUp}>
                 <View style={profile_styles.profitCircle}>
-                    <Text style={[profile_styles.moneyText, {fontWeight: "bold"}]}>$ 129.69</Text>
+                    <Text style={[profile_styles.moneyText, {fontWeight: "bold"}]}>$ {profitData[0].curentProfit.toFixed(2)}</Text>
                     <Spacer height={10}/>
                     <Text style={profile_styles.moneyText}>Profit</Text>
                 </View>
@@ -43,9 +96,7 @@ export default function Profile({navigation}) {
             </View>
 
             <ScrollView style={profile_styles.containerScrollView} contentContainerStyle={{alignItems: "center"}}>
-                <ProfitCard text={"Profit"} money={13.99}/>
-
-                <ProfitCard text={"Loss"} money={200}/>
+                {renderDynamicProfit()}
             </ScrollView>
         </View>
     );

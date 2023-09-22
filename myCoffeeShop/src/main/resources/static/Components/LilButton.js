@@ -71,6 +71,42 @@ async function fetchDataGetProducts(){
     return await responseJson.json();
 }
 
+async function fetchDataGetProfit(){
+    const responseJson = await fetch(
+        "http://" + MY_IP + ":8080/profits",
+        {
+            method: "GET",
+            headers: {
+                'Content-Type' : 'application/json'
+            }
+        });
+
+    return await responseJson.json();
+}
+
+async function fetchDataUpdateProfit(id, curentProfit, historic){
+    const responseJson = await fetch(
+        "http://" + MY_IP + ":8080/profit/update",
+        {
+            method: "PUT",
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({
+                "id": id,
+                "curentProfit": curentProfit,
+                "historic": historic
+            })
+        });
+
+    if(responseJson.ok){
+        console.log("Update corect");
+    }else{
+        console.log("Update Profit fail");
+    }
+}
+
+
 export default function LilButton({data, text="null", color="black", navigation, action="null"}) {
 
         const [modalVisible, setModalVisible] = useState(false);
@@ -79,6 +115,8 @@ export default function LilButton({data, text="null", color="black", navigation,
         const {stockToEdit, setStockToEdit} = useContext(MyContext);
 
         const {productData, setProductData} = useContext(MyContext);
+
+        const {profitData, setProfitData} = useContext(MyContext);
 
 
         const [addModalNumber, setAddModalNumber] = useState("");
@@ -155,7 +193,23 @@ export default function LilButton({data, text="null", color="black", navigation,
                                 }).catch(e => {
                                     console.log(e);
                                 });
+
+                                //Update PROFIT
+                                fetchDataUpdateProfit(
+                                    profitData[0].id,
+                                    (profitData[0].curentProfit - (parseFloat(addModalNumber) * data.price)),
+                                    [...profitData[0].historic, -(parseFloat(addModalNumber) * data.price)]
+                                ).then(r => {
+
+                                    fetchDataGetProfit().then(respons => {
+                                        setProfitData(respons)
+                                    })
+                                }).catch(e => {
+                                    console.log(e);
+                                });
                             }
+
+
 
                             setAddModalNumber("");
                         }}>

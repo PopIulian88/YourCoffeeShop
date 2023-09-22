@@ -10,4 +10,6 @@ export const MyContext = createContext({
     setProductData: () => {},
     productToEdit: {},
     setProductToEdit: () => {},
+    profitData: [],
+    setProfitData: () => {},
 })

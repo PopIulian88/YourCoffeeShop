@@ -51,7 +51,7 @@ export default function MenuScreen({navigation}) {
         fetchDataGetProducts().then(respons => {
             setProductData(respons)
         })
-        console.log(productData);
+        // console.log(productData);
     }, [])
 
     return (
