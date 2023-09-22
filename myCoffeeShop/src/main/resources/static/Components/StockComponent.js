@@ -1,4 +1,4 @@
-import {Text, View, Image, TouchableOpacity} from 'react-native';
+import {Text, View} from 'react-native';
 import {stockComponent_styles} from "../Style/Components_style/StockComponent_styles";
 import LilButton from "./LilButton";
 import {DARK_GREEN, MY_GRAY, MY_RED} from "../Help_Box/Colors";

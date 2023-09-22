@@ -38,11 +38,11 @@ async function fetchDataUpdateStocks(id, name, quantity, price, amount, unit){
             })
         });
 
-    if(responseJson.ok){
-        console.log("Update corect");
-    }else{
-        console.log("Update STOCK fail");
-    }
+    // if(responseJson.ok){
+    //     console.log("Update corect");
+    // }else{
+    //     console.log("Update STOCK fail");
+    // }
 }
 
 async function fetchDataGetStocks(){
@@ -99,11 +99,11 @@ async function fetchDataUpdateProfit(id, curentProfit, historic){
             })
         });
 
-    if(responseJson.ok){
-        console.log("Update corect");
-    }else{
-        console.log("Update Profit fail");
-    }
+    // if(responseJson.ok){
+    //     console.log("Update corect");
+    // }else{
+    //     console.log("Update Profit fail");
+    // }
 }
 
 
@@ -131,7 +131,7 @@ export default function LilButton({data, text="null", color="black", navigation,
             }else{
                 if (action === "STOCK") {
                     fetchDataDeleteStocks(data.id).then(r => {
-                        console.log("SUCCES DELETE STOCK");
+                        // console.log("SUCCES DELETE STOCK");
 
                         fetchDataGetStocks().then(respons => {
                             setStocksData(respons)
@@ -185,7 +185,7 @@ export default function LilButton({data, text="null", color="black", navigation,
                                     data.amount,
                                     data.unit
                                 ).then(r => {
-                                    console.log("SUCCES UPDATE STOCK");
+                                    // console.log("SUCCES UPDATE STOCK");
 
                                     fetchDataGetStocks().then(respons => {
                                         setStocksData(respons)
@@ -197,8 +197,8 @@ export default function LilButton({data, text="null", color="black", navigation,
                                 //Update PROFIT
                                 fetchDataUpdateProfit(
                                     profitData[0].id,
-                                    (profitData[0].curentProfit - (parseFloat(addModalNumber) * data.price)),
-                                    [...profitData[0].historic, -(parseFloat(addModalNumber) * data.price)]
+                                    (profitData[0].curentProfit - ((parseFloat(addModalNumber) * data.price) / data.amount)),
+                                    [...profitData[0].historic, -((parseFloat(addModalNumber) * data.price) / data.amount)]
                                 ).then(r => {
 
                                     fetchDataGetProfit().then(respons => {

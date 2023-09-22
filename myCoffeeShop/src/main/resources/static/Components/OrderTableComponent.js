@@ -1,7 +1,6 @@
 import {Text, View, Image, TouchableOpacity} from 'react-native';
 import Spacer from "./Spacer";
 import {orderTableComponent_styles} from "../Style/Components_style/OrderTableComponent_styles";
-import {MY_RED} from "../Help_Box/Colors";
 import {table_styles} from "../Style/Store_style/Table_styles";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {useState} from "react";

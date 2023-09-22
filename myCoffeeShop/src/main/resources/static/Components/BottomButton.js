@@ -23,11 +23,11 @@ async function fetchDataAddStocks(name, quantity, price, amount, unit){
             })
         });
 
-    if(responseJson.ok){
-        console.log("Salvare corecta");
-    }else{
-        console.log("Add STOCK fail");
-    }
+    // if(responseJson.ok){
+    //     console.log("Salvare corecta");
+    // }else{
+    //     console.log("Add STOCK fail");
+    // }
 }
 
 async function fetchDataUpdateStocks(id, name, quantity, price, amount, unit){
@@ -48,11 +48,11 @@ async function fetchDataUpdateStocks(id, name, quantity, price, amount, unit){
             })
         });
 
-    if(responseJson.ok){
-        console.log("Edit corect");
-    }else{
-        console.log("Edit STOCK fail");
-    }
+    // if(responseJson.ok){
+    //     console.log("Edit corect");
+    // }else{
+    //     console.log("Edit STOCK fail");
+    // }
 }
 
 async function fetchDataGetStocks(){
@@ -109,11 +109,11 @@ async function fetchDataAddProduct(myName, description, price, incredients, incr
         });
 
 
-    if(responseJson.ok){
-        console.log("Salvare corecta");
-    }else{
-        console.log("Add PRODUCT fail");
-    }
+    // if(responseJson.ok){
+    //     console.log("Salvare corecta");
+    // }else{
+    //     console.log("Add PRODUCT fail");
+    // }
 }
 
 async function fetchDataUpdateProduct(myId, myName, description, price, incredients, incredients_quantiti, photoLink){
@@ -137,11 +137,11 @@ async function fetchDataUpdateProduct(myId, myName, description, price, incredie
         });
 
 
-    if(responseJson.ok){
-        console.log("Salvare corecta");
-    }else{
-        console.log("Add PRODUCT fail");
-    }
+    // if(responseJson.ok){
+    //     console.log("Salvare corecta");
+    // }else{
+    //     console.log("Add PRODUCT fail");
+    // }
 }
 
 export default function BottomButton({text="null", navigation, navTo="BACK", action='',
@@ -212,7 +212,7 @@ export default function BottomButton({text="null", navigation, navTo="BACK", act
                         }else if(text === "SAVE") {
                             if(action === "STOCK") {
 
-                                console.log(stocksData.filter((element) => element.name === stockData.name).length)
+                                // console.log(stocksData.filter((element) => element.name === stockData.name).length)
 
                                 if(stocksData.find((element) => (element.name === stockData.name && element.id !== stockData.id))) {
                                     alert("Already added");

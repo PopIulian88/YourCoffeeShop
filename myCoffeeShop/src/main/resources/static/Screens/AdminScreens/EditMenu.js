@@ -9,7 +9,6 @@ import {Dropdown} from "react-native-element-dropdown";
 import IngredientTag from "../../Components/IngredientTag";
 import {MyContext} from "../../Context/MyContext";
 import {MY_IP} from "../../Help_Box/IP_help";
-import {addProduct_styles} from "../../Style/Admin_style/AddProduct_styles";
 
 async function fetchDataDeleteProduct(id){
     const responseJson = await fetch(
@@ -118,7 +117,7 @@ export default function EditMenu({navigation}) {
                 <Text style={editMenu_styles.textHeader}>Edit Product</Text>
 
                 <TouchableOpacity onPress={() => {
-                    console.log(productToEdit);
+                    // console.log(productToEdit);
                     fetchDataDeleteProduct(productToEdit.id).then(r => {
 
                         fetchDataGetProducts().then(respons => {
@@ -206,7 +205,7 @@ export default function EditMenu({navigation}) {
                         value={incredient}
 
                         onChange={item => {
-                            console.log(item);
+                            // console.log(item);
                             setIncredient(item);
                             setIsFocus(false);
                         }}

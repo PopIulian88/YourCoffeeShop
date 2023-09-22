@@ -1,4 +1,4 @@
-import {Button, Text, View, TouchableOpacity} from 'react-native';
+import {Text, TouchableOpacity} from 'react-native';
 import {admin_employee_button_styles} from "../Style/Components_style/Admin_Employee_Button_styles";
 
 export default function Admin_Employee_Button({title = "Title", text = "Text", navigation, navTo}) {

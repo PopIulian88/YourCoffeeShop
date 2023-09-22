@@ -3,9 +3,6 @@ import Menu from "./Menu";
 import Stock from "./Stock";
 import Profile from "./Profile";
 import {admin_styles} from "../../Style/Admin_style/Admin_styles";
-import {MY_IP} from "../../Help_Box/IP_help";
-import {useContext, useState} from "react";
-import {MyContext} from "../../Context/MyContext";
 
 const Tab = createBottomTabNavigator();
 

@@ -1,10 +1,9 @@
-import {Text, View, ScrollView, Image, TouchableOpacity, RefreshControl, Button} from 'react-native';
+import {Text, View, ScrollView, Image, TouchableOpacity} from 'react-native';
 import {stock_styles} from "../../Style/Admin_style/Stock_styles";
 import {MaterialIcons} from "@expo/vector-icons";
 import StockComponent from "../../Components/StockComponent";
 import {MY_IP} from "../../Help_Box/IP_help";
 import {useContext, useEffect, useState} from "react";
-import Spacer from "../../Components/Spacer";
 import {MyContext} from "../../Context/MyContext";
 
 

@@ -7,7 +7,6 @@ import ProfitCard from "../../Components/ProfitCard";
 import {useContext, useEffect} from "react";
 import {MyContext} from "../../Context/MyContext";
 import {MY_IP} from "../../Help_Box/IP_help";
-import MenuComponent from "../../Components/MenuComponent";
 
 
 async function fetchDataGetProfit(){

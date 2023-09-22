@@ -40,11 +40,11 @@ async function fetchDataInitProfile(curentProfit, historic){
         });
 
 
-    if(responseJson.ok){
-        console.log("Salvare corecta");
-    }else{
-        console.log("Add PRODUCT fail");
-    }
+    // if(responseJson.ok){
+    //     console.log("Salvare corecta");
+    // }else{
+    //     console.log("Add PRODUCT fail");
+    // }
 }
 
 async function fetchDataGetProfit(){

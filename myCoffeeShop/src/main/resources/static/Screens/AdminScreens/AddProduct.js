@@ -68,7 +68,7 @@ export default function AddProduct({navigation}) {
         fetchDataGetStocks().then(respons => {
             setStocksData(respons)
         })
-        console.log(stocksData);
+        // console.log(stocksData);
     }, [])
 
     return (
@@ -158,7 +158,7 @@ export default function AddProduct({navigation}) {
                         value={incredient}
 
                         onChange={item => {
-                            console.log(item);
+                            // console.log(item);
                             setIncredient(item);
                             setIsFocus(false);
                         }}
