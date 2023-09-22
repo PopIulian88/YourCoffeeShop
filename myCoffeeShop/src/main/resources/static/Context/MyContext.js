@@ -12,4 +12,6 @@ export const MyContext = createContext({
     setProductToEdit: () => {},
     profitData: [],
     setProfitData: () => {},
+
+
 })

@@ -1,12 +1,13 @@
-import {Button, Image, Text, TouchableOpacity, View} from 'react-native';
+import {Image, Text, TouchableOpacity, View} from 'react-native';
 import {shop_styles} from "../../Style/Store_style/Shop_styles";
-import {menu_styles} from "../../Style/Admin_style/Menu_styles";
-import {profile_styles} from "../../Style/Admin_style/Profile_styles";
+
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {MY_RED} from "../../Help_Box/Colors";
 import TableComponent from "../../Components/TableComponent";
 
 export default function Shop({navigation}) {
+
+
     return (
         <View style={shop_styles.container}>
             <View style={shop_styles.containerUp}>

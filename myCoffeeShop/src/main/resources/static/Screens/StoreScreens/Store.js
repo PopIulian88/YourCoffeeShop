@@ -4,6 +4,7 @@ import Table from "./Table";
 import FinishOrder from "./FinishOrder";
 import Checkout from "./Checkout";
 
+
 const Stack = createNativeStackNavigator()
 
 export default function Store() {

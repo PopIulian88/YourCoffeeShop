@@ -12,24 +12,18 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table
-public class Product {
-
+public class StoreTable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, updatable = false)
     private Long id;
 
-    private String name;
+    private int tableNumber;
 
-    private String description;
-
-    private double price;
+    private int state;
 
     @ManyToMany
-    private List<Stock> incredients;
+    private List<Product> cart;
 
-    @ElementCollection
-    private List<Double> incredients_quantiti ;
 
-    private String photoLink;
 }
