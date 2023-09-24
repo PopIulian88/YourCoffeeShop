@@ -27,27 +27,33 @@ public class StoreTableService {
 
 
             storeTable1.setTableNumber(1);
-            storeTable1.setState(1);
+            storeTable1.setState(0);
+            storeTable1.setProducts_quantiti(null);
             storeTableRepository.save(storeTable1);
 
             storeTable2.setTableNumber(2);
-            storeTable2.setState(1);
+            storeTable2.setState(0);
+            storeTable2.setProducts_quantiti(null);
             storeTableRepository.save(storeTable2);
 
             storeTable3.setTableNumber(3);
-            storeTable3.setState(1);
+            storeTable3.setState(0);
+            storeTable3.setProducts_quantiti(null);
             storeTableRepository.save(storeTable3);
 
             storeTable4.setTableNumber(4);
-            storeTable4.setState(1);
+            storeTable4.setState(0);
+            storeTable4.setProducts_quantiti(null);
             storeTableRepository.save(storeTable4);
 
             storeTable5.setTableNumber(5);
-            storeTable5.setState(1);
+            storeTable5.setState(0);
+            storeTable5.setProducts_quantiti(null);
             storeTableRepository.save(storeTable5);
 
             storeTable6.setTableNumber(6);
-            storeTable6.setState(1);
+            storeTable6.setState(0);
+            storeTable6.setProducts_quantiti(null);
             storeTableRepository.save(storeTable6);
         }
     }
@@ -69,7 +75,7 @@ public class StoreTableService {
         existngStoreTable.setTableNumber(storeTable.getTableNumber());
         existngStoreTable.setState(storeTable.getState());
         existngStoreTable.setCart(storeTable.getCart());
-
+        existngStoreTable.setProducts_quantiti(storeTable.getProducts_quantiti());
 
         return storeTableRepository.save(existngStoreTable);
     }

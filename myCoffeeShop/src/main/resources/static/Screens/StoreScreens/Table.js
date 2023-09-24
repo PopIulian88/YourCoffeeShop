@@ -3,12 +3,101 @@ import {table_styles} from "../../Style/Store_style/Table_styles";
 import {BACKGROUND_COLOR, DARK_GREEN, MY_RED} from "../../Help_Box/Colors";
 import Spacer from "../../Components/Spacer";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
-import {useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import OrderTableComponent from "../../Components/OrderTableComponent";
+import {MyContext} from "../../Context/MyContext";
+import MenuComponent from "../../Components/MenuComponent";
+import {MY_IP} from "../../Help_Box/IP_help";
 
-export default function Table({nr=1, navigation}) {
+async function fetchDataGetProducts(){
+    const responseJson = await fetch(
+        "http://" + MY_IP + ":8080/products",
+        {
+            method: "GET",
+            headers: {
+                'Content-Type' : 'application/json'
+            }
+        });
+
+    return await responseJson.json();
+}
+
+async function fetchDataUpdateStoreTable(myId, tableNumber, state, cart, products_quantiti){
+
+    const responseJson = await fetch(
+        "http://" + MY_IP + ":8080/StoreTable/update",
+        {
+            method: "PUT",
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({
+                "id": myId,
+                "tableNumber": tableNumber,
+                "state": state,
+                "cart": cart,
+                "products_quantiti": products_quantiti
+            })
+        });
+
+
+    // if(responseJson.ok){
+    //     console.log("Salvare corecta");
+    // }else{
+    //     console.log("Add PRODUCT fail");
+    // }
+}
+
+async function fetchDataGetStoreTable(){
+    const responseJson = await fetch(
+        "http://" + MY_IP + ":8080/StoreTables",
+        {
+            method: "GET",
+            headers: {
+                'Content-Type' : 'application/json'
+            }
+        });
+
+    return await responseJson.json();
+}
+
+export default function Table({navigation}) {
+
+    const {productData, setProductData} = useContext(MyContext);
+    const {tableToEdit, setTableToEdit} = useContext(MyContext);
 
     const [curentLine, setCurentLine] = useState(1);
+
+    const [orderProducts, setOrderProducts] = useState(tableToEdit.cart);
+    const [orderQuantiti, setOrderQuantiti] = useState(tableToEdit.products_quantiti);
+
+
+    const renderDynamicMenu = () => {
+        return productData.map((item) => {
+            return (
+                <OrderTableComponent
+                    key={item.id}
+                    data={item}
+
+                    name={item.name}
+                    price={item.price}
+                    photoLink={item.photoLink}
+                    setOrderProducts={setOrderProducts}
+                    setOrderQuantiti={setOrderQuantiti}
+
+                    navigation={navigation}
+                />
+            );
+        });
+    };
+
+    useEffect(() => {
+        fetchDataGetProducts().then(respons => {
+            setProductData(respons)
+        })
+        // console.log(productData);
+    }, [])
+
 
     return (
         <View style={table_styles.container}>
@@ -27,13 +116,36 @@ export default function Table({nr=1, navigation}) {
 
                     <View style={{flexDirection: "row"}}>
                         <Text style={table_styles.title}>Order Table</Text>
-                        <Text style={[table_styles.title, {color: DARK_GREEN}]}> #{nr}</Text>
+                        <Text style={[table_styles.title, {color: DARK_GREEN}]}> #{tableToEdit.tableNumber}</Text>
                     </View>
                     <Image source={require("../../Poze/Logo.png")} style={table_styles.logo}/>
                 </View>
 
                 <TouchableOpacity style={table_styles.orderButton} onPress={() => {
-                    navigation.navigate("FinishOrder");
+
+                    // console.log("--------------")
+                    // console.log(orderProducts);
+                    // console.log(orderQuantiti);
+                    // console.log("--------------")
+
+                    fetchDataUpdateStoreTable(
+                        tableToEdit.id,
+                        tableToEdit.tableNumber,
+                        tableToEdit.state,
+                        orderProducts,
+                        orderQuantiti
+                    ).then(respons => {
+
+                        fetchDataGetStoreTable().then(respons => {
+                            setTableToEdit(respons[tableToEdit.tableNumber - 1]);
+                        }).then(() => {
+
+                            // setOrderProducts([]);
+                            // setOrderQuantiti([]);
+                            navigation.navigate("FinishOrder");
+                        })
+                    });
+
                 }}>
                     <Text style={table_styles.text}>Show order</Text>
                 </TouchableOpacity>
@@ -63,14 +175,7 @@ export default function Table({nr=1, navigation}) {
             </View>
 
             <ScrollView style={table_styles.containerScrollView} contentContainerStyle={{alignItems: "center"}} >
-                <OrderTableComponent name={"Ice Coffee"} price={12}  navigation={navigation}
-                                     photoLink={"https://images.immediate.co.uk/production/volatile/sites/2/2021/08/coldbrew-iced-latte-with-my-recipe-photo-by-@ellamiller_photo-f1e3d9e.jpg?quality=90&resize=556,505"}/>
-                <OrderTableComponent name={"Latte"} price={7} navigation={navigation}
-                                     photoLink={"https://www.caffesociety.co.uk/assets/recipe-images/latte-small.jpg"}/>
-                <OrderTableComponent/>
-                <OrderTableComponent/>
-                <OrderTableComponent/>
-
+                {renderDynamicMenu()}
             </ScrollView>
         </View>
     );

@@ -12,6 +12,9 @@ export const MyContext = createContext({
     setProductToEdit: () => {},
     profitData: [],
     setProfitData: () => {},
-
+    tablesData: [],
+    setTablesData: () => {},
+    tableToEdit: {},
+    setTableToEdit: () => {},
 
 })

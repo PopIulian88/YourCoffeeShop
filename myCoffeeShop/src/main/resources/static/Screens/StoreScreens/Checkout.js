@@ -3,8 +3,41 @@ import {checkout_styles} from "../../Style/Store_style/Checkout_styles";
 import Spacer from "../../Components/Spacer";
 import BottomButton from "../../Components/BottomButton";
 import CheckoutComponent from "../../Components/CheckoutComponent";
+import {useContext, useState} from "react";
+import {MyContext} from "../../Context/MyContext";
+import OrderTableComponent from "../../Components/OrderTableComponent";
 
 export default function Checkout({navigation}) {
+
+    const {tableToEdit, setTableToEdit} = useContext(MyContext);
+    const [totalPrice, setTotalPrice] =useState(0)
+
+
+    const renderDynamicCheckout = () => {
+        return (tableToEdit.cart).map((item, index) => {
+            // setTotalPrice(rest => rest + item.price);
+
+            return (
+                <CheckoutComponent
+                    key={item.id}
+                    data={item}
+
+                    name={item.name}
+                    amount={tableToEdit.products_quantiti[index]}
+                    price={item.price}
+
+                    navigation={navigation}
+                />
+            );
+        });
+    };
+
+    const renderDynamicTotalPrice = () => {
+
+        return (tableToEdit.cart).reduce((suma, element, index) => suma + (element.price) * tableToEdit.products_quantiti[index], 0);
+    };
+
+
     return (
         <View style={checkout_styles.container}>
             <View style={checkout_styles.containerUp}>
@@ -14,7 +47,7 @@ export default function Checkout({navigation}) {
                     <View style={checkout_styles.priceBox}>
                         <Text style={checkout_styles.text}>Total Bill</Text>
                         <Spacer height={5}/>
-                        <Text style={checkout_styles.title}>$80.60</Text>
+                        <Text style={checkout_styles.title}>${renderDynamicTotalPrice()}</Text>
                     </View>
                 </View>
 
@@ -29,12 +62,10 @@ export default function Checkout({navigation}) {
 
             <View style={checkout_styles.containerDown}>
                 <ScrollView style={checkout_styles.containerScrollView} contentContainerStyle={{alignItems: "center"}} >
-                    <CheckoutComponent name={"Ice Coffee"} amount={3} price={13.99}/>
-                    <CheckoutComponent name={"Latte"} amount={1} price={66.70}/>
-
+                    {renderDynamicCheckout()}
                 </ScrollView>
 
-                <BottomButton text="Checkout" navigation={navigation} navTo={"Shop"}/>
+                <BottomButton text="Checkout" navigation={navigation} navTo={"Shop"} BillPrice={renderDynamicTotalPrice()}/>
             </View>
         </View>
     );

@@ -4,8 +4,55 @@ import {shop_styles} from "../../Style/Store_style/Shop_styles";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {MY_RED} from "../../Help_Box/Colors";
 import TableComponent from "../../Components/TableComponent";
+import {useContext, useEffect, useState} from "react";
+import {MY_IP} from "../../Help_Box/IP_help";
+import {MyContext} from "../../Context/MyContext";
+
+async function fetchDataGetStoreTable(){
+    const responseJson = await fetch(
+        "http://" + MY_IP + ":8080/StoreTables",
+        {
+            method: "GET",
+            headers: {
+                'Content-Type' : 'application/json'
+            }
+        });
+
+    return await responseJson.json();
+}
+
+async function fetchDataGetProfit(){
+    const responseJson = await fetch(
+        "http://" + MY_IP + ":8080/profits",
+        {
+            method: "GET",
+            headers: {
+                'Content-Type' : 'application/json'
+            }
+        });
+
+    return await responseJson.json();
+}
 
 export default function Shop({navigation}) {
+
+    const {tablesData, setTablesData} = useContext(MyContext)
+    const {tableToEdit, setTableToEdit} = useContext(MyContext);
+
+    const {profitData, setProfitData} = useContext(MyContext);
+
+
+
+    useEffect(() => {
+        fetchDataGetStoreTable().then(response => {
+            setTablesData(response);
+        })
+
+    }, [])
+
+    fetchDataGetProfit().then(respons => {
+        setProfitData(respons);
+    })
 
 
     return (
@@ -30,21 +77,21 @@ export default function Shop({navigation}) {
 
             <View style={shop_styles.containerMid}>
                 <View style={shop_styles.tableLine}>
-                    <TableComponent nr={0} type={1} navigation={navigation}/>
+                    <TableComponent dataTable={tablesData[0]} type={tablesData[0].state} navigation={navigation}/>
 
-                    <TableComponent nr={1} navigation={navigation}/>
+                    <TableComponent dataTable={tablesData[1]} type={tablesData[1].state} navigation={navigation}/>
                 </View>
 
                 <View style={shop_styles.tableLine}>
-                    <TableComponent nr={2} navigation={navigation}/>
+                    <TableComponent dataTable={tablesData[2]} type={tablesData[2].state} navigation={navigation}/>
 
-                    <TableComponent nr={3} type={1} navigation={navigation}/>
+                    <TableComponent dataTable={tablesData[3]} type={tablesData[3].state} navigation={navigation}/>
                 </View>
 
                 <View style={shop_styles.tableLine}>
-                    <TableComponent nr={4} navigation={navigation}/>
+                    <TableComponent dataTable={tablesData[4]} type={tablesData[4].state} navigation={navigation}/>
 
-                    <TableComponent nr={5} type={2} navigation={navigation}/>
+                    <TableComponent dataTable={tablesData[5]} type={tablesData[5].state} navigation={navigation}/>
                 </View>
             </View>
 

@@ -3,11 +3,46 @@ import {finishOrder_styles} from "../../Style/Store_style/FinishOrder_styles";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {DARK_GREEN, MY_RED} from "../../Help_Box/Colors";
 import Spacer from "../../Components/Spacer";
-import OrderTableComponent from "../../Components/OrderTableComponent";
 import BottomButton from "../../Components/BottomButton";
 import FinishOrderComponent from "../../Components/FinishOrderComponent";
+import {MyContext} from "../../Context/MyContext";
+import {useContext, useEffect} from "react";
+import {MY_IP} from "../../Help_Box/IP_help";
+import OrderTableComponent from "../../Components/OrderTableComponent";
 
-export default function FinishOrder({nr=1, navigation}) {
+export default function FinishOrder({navigation}) {
+
+    const {tableToEdit, setTableToEdit} = useContext(MyContext);
+
+    // console.log(tableToEdit.cart[0].name);
+
+    // console.log(tableToEdit.products_quantiti[0]);
+
+
+
+    const renderDynamicFinishOrder = () => {
+        return (tableToEdit.cart).map((item, index) => {
+            return (
+                <FinishOrderComponent
+                    key={item.id}
+                    data={item}
+
+                    myIndex={index}
+                    name={item.name}
+                    price={item.price}
+                    amount={tableToEdit.products_quantiti[index]}
+                    // amount={1}
+
+                    photoLink={item.photoLink}
+
+                    navigation={navigation}
+                />
+            );
+        });
+    };
+
+    // console.log(tablesData);
+
     return (
         <View style={finishOrder_styles.container}>
             <View style={finishOrder_styles.containerUp}>
@@ -25,7 +60,7 @@ export default function FinishOrder({nr=1, navigation}) {
 
                     <View style={{flexDirection: "row"}}>
                         <Text style={finishOrder_styles.title}>Finish Order</Text>
-                        <Text style={[finishOrder_styles.title, {color: DARK_GREEN}]}> #{nr}</Text>
+                        <Text style={[finishOrder_styles.title, {color: DARK_GREEN}]}> #{tableToEdit.tableNumber}</Text>
                     </View>
                     <Image source={require("../../Poze/Logo.png")} style={finishOrder_styles.logo}/>
                 </View>
@@ -36,18 +71,16 @@ export default function FinishOrder({nr=1, navigation}) {
             </View>
 
             <ScrollView style={finishOrder_styles.containerScrollView} contentContainerStyle={{alignItems: "center"}} >
-                <FinishOrderComponent name={"Ice Coffee"} price={12} amount={2} navigation={navigation}
-                                      photoLink="https://images.immediate.co.uk/production/volatile/sites/2/2021/08/coldbrew-iced-latte-with-my-recipe-photo-by-@ellamiller_photo-f1e3d9e.jpg?quality=90&resize=556,505"/>
-
-                <FinishOrderComponent name={"Latte"} price={7} amount={1} navigation={navigation}
-                                      photoLink="https://www.caffesociety.co.uk/assets/recipe-images/latte-small.jpg"/>
-
-                <FinishOrderComponent />
-
-                <FinishOrderComponent />
+                {renderDynamicFinishOrder()}
             </ScrollView>
 
-            <BottomButton text="Place order" navigation={navigation} navTo={"Shop"}/>
+            {
+                tableToEdit.products_quantiti[0] ?
+                <BottomButton text="Place order" navigation={navigation} navTo={"Shop"}/>
+                    :
+                    <BottomButton text="NOT DONE" navigation={navigation} navTo={"Shop"}/>
+
+            }
         </View>
     );
 

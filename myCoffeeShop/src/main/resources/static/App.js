@@ -60,6 +60,32 @@ async function fetchDataGetProfit(){
     return await responseJson.json();
 }
 
+async function fetchDataGetStoreTable(){
+    const responseJson = await fetch(
+        "http://" + MY_IP + ":8080/StoreTables",
+        {
+            method: "GET",
+            headers: {
+                'Content-Type' : 'application/json'
+            }
+        });
+
+    return await responseJson.json();
+}
+
+async function fetchDatainitStoreTables(){
+    const responseJson = await fetch(
+        "http://" + MY_IP + ":8080/initStoreTable",
+        {
+            method: "POST",
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+        });
+
+    return responseJson;
+}
+
 export default function App() {
 
     const [stocksData, setStocksData] = useState([]);
@@ -67,6 +93,9 @@ export default function App() {
     const [productData, setProductData] = useState([]);
     const [productToEdit, setProductToEdit] = useState({});
     const [profitData, setProfitData] = useState([]);
+    const [tablesData, setTablesData] = useState([]);
+    const [tableToEdit, setTableToEdit] = useState({});
+
 
     useEffect(() => {
         fetchDataGetStocks().then(respons => {
@@ -76,6 +105,14 @@ export default function App() {
         fetchDataInitProfile(0, []).then(respons => {
 
         });
+
+        fetchDatainitStoreTables().then(respons => {
+
+        });
+
+        fetchDataGetStoreTable().then(response => {
+            setTablesData(response);
+        })
 
         // console.log(stocksData);
     }, [])
@@ -87,7 +124,9 @@ export default function App() {
                 stockToEdit, setStockToEdit,
                 productData, setProductData,
                 productToEdit, setProductToEdit,
-                profitData, setProfitData
+                profitData, setProfitData,
+                tablesData, setTablesData,
+                tableToEdit, setTableToEdit
             }}>
                 <NavigationContainer>
                     <Stack.Navigator initialRouteName={"Welcome"}>

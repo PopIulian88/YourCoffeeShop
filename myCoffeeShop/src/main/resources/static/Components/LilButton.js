@@ -106,8 +106,50 @@ async function fetchDataUpdateProfit(id, curentProfit, historic){
     // }
 }
 
+async function fetchDataUpdateStoreTable(myId, tableNumber, state, cart, products_quantiti){
 
-export default function LilButton({data, text="null", color="black", navigation, action="null"}) {
+    // console.log(cart);
+    // console.log(products_quantiti);
+
+    const responseJson = await fetch(
+        "http://" + MY_IP + ":8080/StoreTable/update",
+        {
+            method: "PUT",
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({
+                "id": myId,
+                "tableNumber": tableNumber,
+                "state": state,
+                "cart": cart,
+                "products_quantiti": products_quantiti
+            })
+        });
+
+
+    // if(responseJson.ok){
+    //     console.log("Salvare corecta");
+    // }else{
+    //     console.log("Add PRODUCT fail");
+    // }
+}
+
+async function fetchDataGetStoreTable(){
+    const responseJson = await fetch(
+        "http://" + MY_IP + ":8080/StoreTables",
+        {
+            method: "GET",
+            headers: {
+                'Content-Type' : 'application/json'
+            }
+        });
+
+    return await responseJson.json();
+}
+
+
+export default function LilButton({data, text="null", color="black", navigation, action="null", myIndex}) {
 
         const [modalVisible, setModalVisible] = useState(false);
 
@@ -118,8 +160,14 @@ export default function LilButton({data, text="null", color="black", navigation,
 
         const {profitData, setProfitData} = useContext(MyContext);
 
+        // const {tableToEdit, setTableToEdit} = useContext(MyContext);
+
 
         const [addModalNumber, setAddModalNumber] = useState("");
+
+        // const [finishOrderProducts, setFinishOrderProducts]= useState(tableToEdit.cart)
+        // const [finishOrderQuantiti, setFinishOrderQuantiti]= useState(tableToEdit.products_quantiti)
+
 
     return (
         <TouchableOpacity style={[lilButton_styles.container, {backgroundColor: color}]} onPress={() => {
@@ -138,12 +186,41 @@ export default function LilButton({data, text="null", color="black", navigation,
                         })
 
                         fetchDataGetProducts().then(respons => {
-                            setProductData(respons)
+                            setProductData(respons);
                         })
 
                     }).catch(e => {
                         console.log(e);
                     });
+                }else if(action === "ORDER") {
+                    // console.log(tableToEdit);
+                    // console.log(myIndex);
+
+                    // console.log(finishOrderProducts);
+                    // console.log(finishOrderQuantiti);
+
+                    // const updatedFinishOrderProducts = (tableToEdit.cart).filter((item, index) => index !== myIndex);
+                    // // setFinishOrderProducts(updatedFinishOrderProducts);
+                    //
+                    // const updatedFinishOrderQuantiti = (tableToEdit.products_quantiti).filter((item, index) => index !== myIndex);
+                    // // setFinishOrderQuantiti(updatedFinishOrderQuantiti);
+
+                    // fetchDataUpdateStoreTable(
+                    //     tableToEdit.id,
+                    //     tableToEdit.tableNumber,
+                    //     tableToEdit.state,
+                    //     updatedFinishOrderProducts,
+                    //     updatedFinishOrderQuantiti
+                    // ).then(response => {
+                    //     fetchDataGetStoreTable().then(response => {
+                    //         console.log(response);
+                    //         setTableToEdit(response[myIndex]);
+                    //     })
+                    // });
+
+
+
+                    alert("You have to buy the Pass for this features");
                 }
             }
         }}>

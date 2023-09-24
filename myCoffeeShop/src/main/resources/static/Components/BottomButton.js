@@ -144,7 +144,71 @@ async function fetchDataUpdateProduct(myId, myName, description, price, incredie
     // }
 }
 
-export default function BottomButton({text="null", navigation, navTo="BACK", action='',
+async function fetchDataUpdateStoreTable(myId, tableNumber, state, cart, products_quantiti){
+
+    // console.log(cart);
+    // console.log(products_quantiti);
+
+    const responseJson = await fetch(
+        "http://" + MY_IP + ":8080/StoreTable/update",
+        {
+            method: "PUT",
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({
+                "id": myId,
+                "tableNumber": tableNumber,
+                "state": state,
+                "cart": cart,
+                "products_quantiti": products_quantiti
+            })
+        });
+
+
+    // if(responseJson.ok){
+    //     console.log("Salvare corecta");
+    // }else{
+    //     console.log("Add PRODUCT fail");
+    // }
+}
+
+async function fetchDataGetStoreTable(){
+    const responseJson = await fetch(
+        "http://" + MY_IP + ":8080/StoreTables",
+        {
+            method: "GET",
+            headers: {
+                'Content-Type' : 'application/json'
+            }
+        });
+
+    return await responseJson.json();
+}
+
+async function fetchDataUpdateProfit(id, curentProfit, historic){
+    const responseJson = await fetch(
+        "http://" + MY_IP + ":8080/profit/update",
+        {
+            method: "PUT",
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({
+                "id": id,
+                "curentProfit": curentProfit,
+                "historic": historic
+            })
+        });
+
+    // if(responseJson.ok){
+    //     console.log("Update corect");
+    // }else{
+    //     console.log("Update Profit fail");
+    // }
+}
+
+export default function BottomButton({text="null", navigation, navTo="BACK", action='', BillPrice=0,
                                          stockData={}}) {
 
 
@@ -152,13 +216,23 @@ export default function BottomButton({text="null", navigation, navTo="BACK", act
 
     const {productData, setProductData} = useContext(MyContext);
 
+    const {tableToEdit, setTableToEdit} = useContext(MyContext);
+    const {tablesData, setTablesData} = useContext(MyContext)
+
+    const {profitData, setProfitData} = useContext(MyContext);
+
+
+
 
     return (
         <View style={bottomButton_styles.container}>
             {
                 text === "NOT DONE" ?
                     <TouchableOpacity style={[bottomButton_styles.containerButton, {backgroundColor: MY_GRAY}]}
-                                      onPress={() => {alert("Complete all the fields first")}}>
+                                      onPress={() => {
+                                          action === "Shop" ? alert("Complete all the fields first")
+                                              : alert("No product added")
+                                      }}>
 
                         <Text style={bottomButton_styles.text}>{text}</Text>
                     </TouchableOpacity>
@@ -266,7 +340,55 @@ export default function BottomButton({text="null", navigation, navTo="BACK", act
                                 console.log("No add action");
                             }
                         }else if(text === "Checkout"){
-                            navigation.navigate(navTo);
+
+                            // console.log(tableToEdit);
+                            // console.log(BillPrice);
+                            // console.log(profitData)
+
+                            fetchDataUpdateProfit(
+                                profitData[0].id,
+                                (profitData[0].curentProfit + BillPrice),
+                                [...profitData[0].historic, BillPrice]
+                            ).then(response => {
+                                fetchDataUpdateStoreTable(
+                                    tableToEdit.id,
+                                    tableToEdit.tableNumber,
+                                    2,
+                                    [],
+                                    []
+                                ).then(response => {
+                                    fetchDataGetStoreTable().then(response => {
+                                        setTablesData(response)
+                                    }).then(() => {
+                                        navigation.navigate("Welcome");
+
+                                    })
+                                })
+                            })
+
+
+
+                            // navigation.navigate(navTo);
+
+
+                        }else if(text === "Place order") {
+                            console.log(tableToEdit);
+
+                            fetchDataUpdateStoreTable(
+                                tableToEdit.id,
+                                tableToEdit.tableNumber,
+                                1,
+                                tableToEdit.cart,
+                                tableToEdit.products_quantiti
+                            ).then(response => {
+                                fetchDataGetStoreTable().then(response => {
+                                    setTablesData(response);
+                                    setTableToEdit(response[tableToEdit.tableNumber - 1]);
+                                }).then(() => {
+                                    navigation.navigate("Welcome");
+                                })
+
+                            })
                         }else {
                             navigation.goBack();
                         }

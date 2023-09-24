@@ -33,7 +33,7 @@ export default function Profile({navigation}) {
         // console.log(profitData[0]);
 
     const renderDynamicProfit = () => {
-        return (profitData[0].historic).map((item) => {
+        return (profitData[0].historic.reverse()).map((item) => {
             return (
                 <>
                 {

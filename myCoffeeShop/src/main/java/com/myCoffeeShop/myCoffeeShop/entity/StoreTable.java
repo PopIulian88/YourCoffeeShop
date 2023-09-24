@@ -25,5 +25,6 @@ public class StoreTable {
     @ManyToMany
     private List<Product> cart;
 
-
+    @ElementCollection
+    private List<Double> products_quantiti ;
 }
