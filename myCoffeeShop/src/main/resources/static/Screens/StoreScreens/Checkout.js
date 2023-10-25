@@ -5,7 +5,6 @@ import BottomButton from "../../Components/BottomButton";
 import CheckoutComponent from "../../Components/CheckoutComponent";
 import {useContext, useState} from "react";
 import {MyContext} from "../../Context/MyContext";
-import OrderTableComponent from "../../Components/OrderTableComponent";
 
 export default function Checkout({navigation}) {
 

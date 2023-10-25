@@ -9,20 +9,10 @@ import {Dropdown} from "react-native-element-dropdown";
 import IngredientTag from "../../Components/IngredientTag";
 import {MY_IP} from "../../Help_Box/IP_help";
 import {MyContext} from "../../Context/MyContext";
+import {fetchDataGetStocks} from "../../Help_Box/API_calls";
 
 
-async function fetchDataGetStocks(){
-    const responseJson = await fetch(
-        "http://" + MY_IP + ":8080/stocks",
-        {
-            method: "GET",
-            headers: {
-                'Content-Type' : 'application/json'
-            }
-        });
 
-    return await responseJson.json();
-}
 
 export default function AddProduct({navigation}) {
 

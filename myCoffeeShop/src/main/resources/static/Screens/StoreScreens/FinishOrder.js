@@ -7,8 +7,6 @@ import BottomButton from "../../Components/BottomButton";
 import FinishOrderComponent from "../../Components/FinishOrderComponent";
 import {MyContext} from "../../Context/MyContext";
 import {useContext, useEffect} from "react";
-import {MY_IP} from "../../Help_Box/IP_help";
-import OrderTableComponent from "../../Components/OrderTableComponent";
 
 export default function FinishOrder({navigation}) {
 

@@ -1,182 +1,44 @@
-import {Text, View, TouchableOpacity, Modal, Alert, Pressable, TextInput} from 'react-native';
+import {Text, View, TouchableOpacity, Modal, Alert, TextInput} from 'react-native';
 import {lilButton_styles} from "../Style/Components_style/LilButton_styles";
 import {useContext, useEffect, useState} from "react";
 import {modal_styles} from "../Style/Modal_styles";
 import Spacer from "./Spacer";
-import {MY_IP} from "../Help_Box/IP_help";
 import {MyContext} from "../Context/MyContext";
+import {
+    fetchDataDeleteStocks,
+    fetchDataGetProducts, fetchDataGetProfit,
+    fetchDataGetStocks, fetchDataUpdateProfit,
+    fetchDataUpdateStocks
+} from "../Help_Box/API_calls";
+
+export default function LilButton({data, text = "null", color = "black", navigation, action = "null", myIndex}) {
+
+    const [modalVisible, setModalVisible] = useState(false);
+
+    const {stocksData, setStocksData} = useContext(MyContext);
+    const {stockToEdit, setStockToEdit} = useContext(MyContext);
+
+    const {productData, setProductData} = useContext(MyContext);
+
+    const {profitData, setProfitData} = useContext(MyContext);
+
+    // const {tableToEdit, setTableToEdit} = useContext(MyContext);
 
 
-async function fetchDataDeleteStocks(id){
-    const responseJson = await fetch(
-        "http://" + MY_IP + ":8080/stock/delete/" + id,
-        {
-            method: "DELETE",
-            headers: {
-                'Content-Type' : 'application/json'
-            }
-        });
+    const [addModalNumber, setAddModalNumber] = useState("");
 
-    return responseJson;
-}
-
-async function fetchDataUpdateStocks(id, name, quantity, price, amount, unit){
-    const responseJson = await fetch(
-        "http://" + MY_IP + ":8080/stock/update",
-        {
-            method: "PUT",
-            headers: {
-                'Content-Type' : 'application/json'
-            },
-            body: JSON.stringify({
-                "id": id,
-                "name": name,
-                "quantity": quantity,
-                "price": price,
-                "amount": amount,
-                "unit": unit
-            })
-        });
-
-    // if(responseJson.ok){
-    //     console.log("Update corect");
-    // }else{
-    //     console.log("Update STOCK fail");
-    // }
-}
-
-async function fetchDataGetStocks(){
-    const responseJson = await fetch(
-        "http://" + MY_IP + ":8080/stocks",
-        {
-            method: "GET",
-            headers: {
-                'Content-Type' : 'application/json'
-            }
-        });
-
-    return await responseJson.json();
-}
-
-async function fetchDataGetProducts(){
-    const responseJson = await fetch(
-        "http://" + MY_IP + ":8080/products",
-        {
-            method: "GET",
-            headers: {
-                'Content-Type' : 'application/json'
-            }
-        });
-
-    return await responseJson.json();
-}
-
-async function fetchDataGetProfit(){
-    const responseJson = await fetch(
-        "http://" + MY_IP + ":8080/profits",
-        {
-            method: "GET",
-            headers: {
-                'Content-Type' : 'application/json'
-            }
-        });
-
-    return await responseJson.json();
-}
-
-async function fetchDataUpdateProfit(id, curentProfit, historic){
-    const responseJson = await fetch(
-        "http://" + MY_IP + ":8080/profit/update",
-        {
-            method: "PUT",
-            headers: {
-                'Content-Type' : 'application/json'
-            },
-            body: JSON.stringify({
-                "id": id,
-                "curentProfit": curentProfit,
-                "historic": historic
-            })
-        });
-
-    // if(responseJson.ok){
-    //     console.log("Update corect");
-    // }else{
-    //     console.log("Update Profit fail");
-    // }
-}
-
-async function fetchDataUpdateStoreTable(myId, tableNumber, state, cart, products_quantiti){
-
-    // console.log(cart);
-    // console.log(products_quantiti);
-
-    const responseJson = await fetch(
-        "http://" + MY_IP + ":8080/StoreTable/update",
-        {
-            method: "PUT",
-            headers: {
-                'Content-Type' : 'application/json'
-            },
-            body: JSON.stringify({
-                "id": myId,
-                "tableNumber": tableNumber,
-                "state": state,
-                "cart": cart,
-                "products_quantiti": products_quantiti
-            })
-        });
-
-
-    // if(responseJson.ok){
-    //     console.log("Salvare corecta");
-    // }else{
-    //     console.log("Add PRODUCT fail");
-    // }
-}
-
-async function fetchDataGetStoreTable(){
-    const responseJson = await fetch(
-        "http://" + MY_IP + ":8080/StoreTables",
-        {
-            method: "GET",
-            headers: {
-                'Content-Type' : 'application/json'
-            }
-        });
-
-    return await responseJson.json();
-}
-
-
-export default function LilButton({data, text="null", color="black", navigation, action="null", myIndex}) {
-
-        const [modalVisible, setModalVisible] = useState(false);
-
-        const {stocksData, setStocksData} = useContext(MyContext);
-        const {stockToEdit, setStockToEdit} = useContext(MyContext);
-
-        const {productData, setProductData} = useContext(MyContext);
-
-        const {profitData, setProfitData} = useContext(MyContext);
-
-        // const {tableToEdit, setTableToEdit} = useContext(MyContext);
-
-
-        const [addModalNumber, setAddModalNumber] = useState("");
-
-        // const [finishOrderProducts, setFinishOrderProducts]= useState(tableToEdit.cart)
-        // const [finishOrderQuantiti, setFinishOrderQuantiti]= useState(tableToEdit.products_quantiti)
+    // const [finishOrderProducts, setFinishOrderProducts]= useState(tableToEdit.cart)
+    // const [finishOrderQuantiti, setFinishOrderQuantiti]= useState(tableToEdit.products_quantiti)
 
 
     return (
         <TouchableOpacity style={[lilButton_styles.container, {backgroundColor: color}]} onPress={() => {
-            if(text === "ADD"){
+            if (text === "ADD") {
                 setModalVisible(true);
-            }else if(text === "EDIT"){
+            } else if (text === "EDIT") {
                 setStockToEdit(data);
                 navigation.navigate("EditStock");
-            }else{
+            } else {
                 if (action === "STOCK") {
                     fetchDataDeleteStocks(data.id).then(r => {
                         // console.log("SUCCES DELETE STOCK");
@@ -192,7 +54,7 @@ export default function LilButton({data, text="null", color="black", navigation,
                     }).catch(e => {
                         console.log(e);
                     });
-                }else if(action === "ORDER") {
+                } else if (action === "ORDER") {
                     // console.log(tableToEdit);
                     // console.log(myIndex);
 
@@ -217,7 +79,6 @@ export default function LilButton({data, text="null", color="black", navigation,
                     //         setTableToEdit(response[myIndex]);
                     //     })
                     // });
-
 
 
                     alert("You have to buy the Pass for this features");
@@ -253,7 +114,7 @@ export default function LilButton({data, text="null", color="black", navigation,
                         <TouchableOpacity style={modal_styles.saveChanges} onPress={() => {
                             setModalVisible(false);
 
-                            if(addModalNumber !== "") {
+                            if (addModalNumber !== "") {
                                 fetchDataUpdateStocks(
                                     data.id,
                                     data.name,
@@ -285,7 +146,6 @@ export default function LilButton({data, text="null", color="black", navigation,
                                     console.log(e);
                                 });
                             }
-
 
 
                             setAddModalNumber("");

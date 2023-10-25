@@ -6,35 +6,10 @@ import Checkout from "./Checkout";
 import {MY_IP} from "../../Help_Box/IP_help";
 import {useContext, useEffect} from "react";
 import {MyContext} from "../../Context/MyContext";
+import {fetchDataGetStoreTable, fetchDatainitStoreTables} from "../../Help_Box/API_calls";
 
 
 const Stack = createNativeStackNavigator()
-
-async function fetchDatainitStoreTables(){
-    const responseJson = await fetch(
-        "http://" + MY_IP + ":8080/initStoreTable",
-        {
-            method: "POST",
-            headers: {
-                'Content-Type' : 'application/json'
-            },
-        });
-
-    return responseJson;
-}
-
-async function fetchDataGetStoreTable(){
-    const responseJson = await fetch(
-        "http://" + MY_IP + ":8080/StoreTables",
-        {
-            method: "GET",
-            headers: {
-                'Content-Type' : 'application/json'
-            }
-        });
-
-    return await responseJson.json();
-}
 
 export default function Store() {
 
@@ -43,7 +18,6 @@ export default function Store() {
 
     useEffect(() => {
         fetchDatainitStoreTables().then(response => {
-            // console.log("Mesele sunt facute");
 
             fetchDataGetStoreTable().then(response => {
                 setTablesData(response);
@@ -51,7 +25,6 @@ export default function Store() {
 
         }).catch(e => console.log(e));
 
-        // console.log(stocksData);
     }, [])
 
     return (

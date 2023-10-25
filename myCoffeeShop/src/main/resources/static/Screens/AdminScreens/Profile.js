@@ -6,29 +6,18 @@ import Spacer from "../../Components/Spacer";
 import ProfitCard from "../../Components/ProfitCard";
 import {useContext, useEffect} from "react";
 import {MyContext} from "../../Context/MyContext";
-import {MY_IP} from "../../Help_Box/IP_help";
-
-
-async function fetchDataGetProfit(){
-    const responseJson = await fetch(
-        "http://" + MY_IP + ":8080/profits",
-        {
-            method: "GET",
-            headers: {
-                'Content-Type' : 'application/json'
-            }
-        });
-
-    return await responseJson.json();
-}
+import {fetchDataGetProfit} from "../../Help_Box/API_calls";
 
 export default function Profile({navigation}) {
 
     const {profitData, setProfitData} = useContext(MyContext);
 
-        fetchDataGetProfit().then(respons => {
-            setProfitData(respons);
-        })
+        useEffect(()=>{
+            fetchDataGetProfit().then(respons => {
+                setProfitData(respons);
+            })
+        },[])
+
 
         // console.log(profitData[0]);
 

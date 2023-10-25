@@ -4,209 +4,14 @@ import {MY_GRAY} from "../Help_Box/Colors";
 import {MY_IP} from "../Help_Box/IP_help";
 import {useContext} from "react";
 import {MyContext} from "../Context/MyContext";
+import {
+    fetchDataAddProduct,
+    fetchDataAddStocks,
+    fetchDataGetProducts,
+    fetchDataGetStocks, fetchDataGetStoreTable, fetchDataUpdateProduct, fetchDataUpdateProfit,
+    fetchDataUpdateStocks, fetchDataUpdateStoreTable
+} from "../Help_Box/API_calls";
 
-
-async function fetchDataAddStocks(name, quantity, price, amount, unit){
-    const responseJson = await fetch(
-        "http://" + MY_IP + ":8080/addStock",
-        {
-            method: "POST",
-            headers: {
-                'Content-Type' : 'application/json'
-            },
-            body: JSON.stringify({
-                "name": name,
-                "quantity": quantity,
-                "price": price,
-                "amount": amount,
-                "unit": unit
-            })
-        });
-
-    // if(responseJson.ok){
-    //     console.log("Salvare corecta");
-    // }else{
-    //     console.log("Add STOCK fail");
-    // }
-}
-
-async function fetchDataUpdateStocks(id, name, quantity, price, amount, unit){
-    const responseJson = await fetch(
-        "http://" + MY_IP + ":8080/stock/update",
-        {
-            method: "PUT",
-            headers: {
-                'Content-Type' : 'application/json'
-            },
-            body: JSON.stringify({
-                "id": id,
-                "name": name,
-                "quantity": quantity,
-                "price": price,
-                "amount": amount,
-                "unit": unit
-            })
-        });
-
-    // if(responseJson.ok){
-    //     console.log("Edit corect");
-    // }else{
-    //     console.log("Edit STOCK fail");
-    // }
-}
-
-async function fetchDataGetStocks(){
-    const responseJson = await fetch(
-        "http://" + MY_IP + ":8080/stocks",
-        {
-            method: "GET",
-            headers: {
-                'Content-Type' : 'application/json'
-            }
-        });
-
-    return await responseJson.json();
-}
-
-
-async function fetchDataGetProducts(){
-    const responseJson = await fetch(
-        "http://" + MY_IP + ":8080/products",
-        {
-            method: "GET",
-            headers: {
-                'Content-Type' : 'application/json'
-            }
-        });
-
-    return await responseJson.json();
-}
-async function fetchDataAddProduct(myName, description, price, incredients, incredients_quantiti, photoLink){
-    // console.log("------------------");
-    // console.log(myName);
-    // console.log(description);
-    // console.log(price);
-    // console.log(incredients);
-    // console.log(incredients_quantiti);
-    // console.log(photoLink);
-    // console.log("------------------");
-
-    const responseJson = await fetch(
-        "http://" + MY_IP + ":8080/addProduct",
-        {
-            method: "POST",
-            headers: {
-                'Content-Type' : 'application/json'
-            },
-            body: JSON.stringify({
-                "name": myName,
-                "description": description,
-                "price": price,
-                "incredients": incredients,
-                "incredients_quantiti": incredients_quantiti,
-                "photoLink": photoLink
-            })
-        });
-
-
-    // if(responseJson.ok){
-    //     console.log("Salvare corecta");
-    // }else{
-    //     console.log("Add PRODUCT fail");
-    // }
-}
-
-async function fetchDataUpdateProduct(myId, myName, description, price, incredients, incredients_quantiti, photoLink){
-
-    const responseJson = await fetch(
-        "http://" + MY_IP + ":8080/product/update",
-        {
-            method: "PUT",
-            headers: {
-                'Content-Type' : 'application/json'
-            },
-            body: JSON.stringify({
-                "id": myId,
-                "name": myName,
-                "description": description,
-                "price": price,
-                "incredients": incredients,
-                "incredients_quantiti": incredients_quantiti,
-                "photoLink": photoLink
-            })
-        });
-
-
-    // if(responseJson.ok){
-    //     console.log("Salvare corecta");
-    // }else{
-    //     console.log("Add PRODUCT fail");
-    // }
-}
-
-async function fetchDataUpdateStoreTable(myId, tableNumber, state, cart, products_quantiti){
-
-    // console.log(cart);
-    // console.log(products_quantiti);
-
-    const responseJson = await fetch(
-        "http://" + MY_IP + ":8080/StoreTable/update",
-        {
-            method: "PUT",
-            headers: {
-                'Content-Type' : 'application/json'
-            },
-            body: JSON.stringify({
-                "id": myId,
-                "tableNumber": tableNumber,
-                "state": state,
-                "cart": cart,
-                "products_quantiti": products_quantiti
-            })
-        });
-
-
-    // if(responseJson.ok){
-    //     console.log("Salvare corecta");
-    // }else{
-    //     console.log("Add PRODUCT fail");
-    // }
-}
-
-async function fetchDataGetStoreTable(){
-    const responseJson = await fetch(
-        "http://" + MY_IP + ":8080/StoreTables",
-        {
-            method: "GET",
-            headers: {
-                'Content-Type' : 'application/json'
-            }
-        });
-
-    return await responseJson.json();
-}
-
-async function fetchDataUpdateProfit(id, curentProfit, historic){
-    const responseJson = await fetch(
-        "http://" + MY_IP + ":8080/profit/update",
-        {
-            method: "PUT",
-            headers: {
-                'Content-Type' : 'application/json'
-            },
-            body: JSON.stringify({
-                "id": id,
-                "curentProfit": curentProfit,
-                "historic": historic
-            })
-        });
-
-    // if(responseJson.ok){
-    //     console.log("Update corect");
-    // }else{
-    //     console.log("Update Profit fail");
-    // }
-}
 
 export default function BottomButton({text="null", navigation, navTo="BACK", action='', BillPrice=0,
                                          stockData={}}) {
@@ -360,7 +165,7 @@ export default function BottomButton({text="null", navigation, navTo="BACK", act
                                     fetchDataGetStoreTable().then(response => {
                                         setTablesData(response)
                                     }).then(() => {
-                                        navigation.navigate("Welcome");
+                                        navigation.replace("Shop");
 
                                     })
                                 })
@@ -385,7 +190,9 @@ export default function BottomButton({text="null", navigation, navTo="BACK", act
                                     setTablesData(response);
                                     setTableToEdit(response[tableToEdit.tableNumber - 1]);
                                 }).then(() => {
-                                    navigation.navigate("Welcome");
+                                    navigation.replace("Store");
+
+                                    console.log( "-> " , tablesData)
                                 })
 
                             })

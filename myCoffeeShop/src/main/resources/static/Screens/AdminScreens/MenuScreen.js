@@ -5,23 +5,8 @@ import MenuComponent from "../../Components/MenuComponent";
 import Spacer from "../../Components/Spacer";
 import {BACKGROUND_COLOR, DARK_GREEN} from "../../Help_Box/Colors";
 import {useContext, useEffect, useState} from "react";
-import {MY_IP} from "../../Help_Box/IP_help";
 import {MyContext} from "../../Context/MyContext";
-
-
-async function fetchDataGetProducts(){
-    const responseJson = await fetch(
-        "http://" + MY_IP + ":8080/products",
-        {
-            method: "GET",
-            headers: {
-                'Content-Type' : 'application/json'
-            }
-        });
-
-    return await responseJson.json();
-}
-
+import {fetchDataGetProducts} from "../../Help_Box/API_calls";
 
 
 export default function MenuScreen({navigation}) {
@@ -51,7 +36,7 @@ export default function MenuScreen({navigation}) {
         fetchDataGetProducts().then(respons => {
             setProductData(respons)
         })
-        // console.log(productData);
+         //console.log(productData);
     }, [])
 
     return (

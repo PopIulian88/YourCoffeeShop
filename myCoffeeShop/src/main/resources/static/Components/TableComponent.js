@@ -2,49 +2,7 @@ import {Image, TouchableOpacity} from "react-native";
 import {tableComponent_styles} from "../Style/Components_style/TableComponent_styles";
 import {useContext, useEffect, useState} from "react";
 import {MyContext} from "../Context/MyContext";
-import {MY_IP} from "../Help_Box/IP_help";
-
-async function fetchDataUpdateStoreTable(myId, tableNumber, state, cart, products_quantiti){
-
-    // console.log(cart);
-    // console.log(products_quantiti);
-
-    const responseJson = await fetch(
-        "http://" + MY_IP + ":8080/StoreTable/update",
-        {
-            method: "PUT",
-            headers: {
-                'Content-Type' : 'application/json'
-            },
-            body: JSON.stringify({
-                "id": myId,
-                "tableNumber": tableNumber,
-                "state": state,
-                "cart": cart,
-                "products_quantiti": products_quantiti
-            })
-        });
-
-
-    // if(responseJson.ok){
-    //     console.log("Salvare corecta");
-    // }else{
-    //     console.log("Add PRODUCT fail");
-    // }
-}
-
-async function fetchDataGetStoreTable(){
-    const responseJson = await fetch(
-        "http://" + MY_IP + ":8080/StoreTables",
-        {
-            method: "GET",
-            headers: {
-                'Content-Type' : 'application/json'
-            }
-        });
-
-    return await responseJson.json();
-}
+import {fetchDataGetStoreTable, fetchDataUpdateStoreTable} from "../Help_Box/API_calls";
 
 export default function TableComponent({dataTable, type=0, navigation}) {
     const [tableType, setTableType] = useState(type);
@@ -52,8 +10,6 @@ export default function TableComponent({dataTable, type=0, navigation}) {
     const {tableToEdit, setTableToEdit} = useContext(MyContext);
 
     const {tablesData, setTablesData} = useContext(MyContext)
-
-
 
     return (
         <TouchableOpacity style={tableComponent_styles.container} onPress={() => onPressTableHandler()}>
@@ -87,7 +43,7 @@ export default function TableComponent({dataTable, type=0, navigation}) {
                 fetchDataGetStoreTable().then(response => {
                     setTablesData(response)
                 }).then(() => {
-                    navigation.navigate("Welcome");
+                    navigation.replace("Shop");
 
                 })
             })

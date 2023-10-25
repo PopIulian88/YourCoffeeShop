@@ -5,34 +5,8 @@ import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {MY_RED} from "../../Help_Box/Colors";
 import TableComponent from "../../Components/TableComponent";
 import {useContext, useEffect, useState} from "react";
-import {MY_IP} from "../../Help_Box/IP_help";
 import {MyContext} from "../../Context/MyContext";
-
-async function fetchDataGetStoreTable(){
-    const responseJson = await fetch(
-        "http://" + MY_IP + ":8080/StoreTables",
-        {
-            method: "GET",
-            headers: {
-                'Content-Type' : 'application/json'
-            }
-        });
-
-    return await responseJson.json();
-}
-
-async function fetchDataGetProfit(){
-    const responseJson = await fetch(
-        "http://" + MY_IP + ":8080/profits",
-        {
-            method: "GET",
-            headers: {
-                'Content-Type' : 'application/json'
-            }
-        });
-
-    return await responseJson.json();
-}
+import {fetchDataGetProfit, fetchDataGetStoreTable} from "../../Help_Box/API_calls";
 
 export default function Shop({navigation}) {
 
@@ -48,11 +22,13 @@ export default function Shop({navigation}) {
             setTablesData(response);
         })
 
+        fetchDataGetProfit().then(respons => {
+            setProfitData(respons);
+        })
+
     }, [])
 
-    fetchDataGetProfit().then(respons => {
-        setProfitData(respons);
-    })
+
 
 
     return (
@@ -62,7 +38,7 @@ export default function Shop({navigation}) {
                     <Image source={require("../../Poze/Logo.png")} style={shop_styles.logo}/>
                     <Text style={shop_styles.title}>KEEP SMILING</Text>
 
-                    <TouchableOpacity style={shop_styles.leaveButton} onPress={() => navigation.goBack()}>
+                    <TouchableOpacity style={shop_styles.leaveButton} onPress={() => navigation.replace("Welcome")}>
                         <MaterialCommunityIcons
                             name="exit-run"
                             size={40}

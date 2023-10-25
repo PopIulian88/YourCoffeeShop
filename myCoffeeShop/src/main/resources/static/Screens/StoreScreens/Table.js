@@ -6,60 +6,8 @@ import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {useContext, useEffect, useState} from "react";
 import OrderTableComponent from "../../Components/OrderTableComponent";
 import {MyContext} from "../../Context/MyContext";
-import MenuComponent from "../../Components/MenuComponent";
-import {MY_IP} from "../../Help_Box/IP_help";
+import {fetchDataGetProducts, fetchDataGetStoreTable, fetchDataUpdateStoreTable} from "../../Help_Box/API_calls";
 
-async function fetchDataGetProducts(){
-    const responseJson = await fetch(
-        "http://" + MY_IP + ":8080/products",
-        {
-            method: "GET",
-            headers: {
-                'Content-Type' : 'application/json'
-            }
-        });
-
-    return await responseJson.json();
-}
-
-async function fetchDataUpdateStoreTable(myId, tableNumber, state, cart, products_quantiti){
-
-    const responseJson = await fetch(
-        "http://" + MY_IP + ":8080/StoreTable/update",
-        {
-            method: "PUT",
-            headers: {
-                'Content-Type' : 'application/json'
-            },
-            body: JSON.stringify({
-                "id": myId,
-                "tableNumber": tableNumber,
-                "state": state,
-                "cart": cart,
-                "products_quantiti": products_quantiti
-            })
-        });
-
-
-    // if(responseJson.ok){
-    //     console.log("Salvare corecta");
-    // }else{
-    //     console.log("Add PRODUCT fail");
-    // }
-}
-
-async function fetchDataGetStoreTable(){
-    const responseJson = await fetch(
-        "http://" + MY_IP + ":8080/StoreTables",
-        {
-            method: "GET",
-            headers: {
-                'Content-Type' : 'application/json'
-            }
-        });
-
-    return await responseJson.json();
-}
 
 export default function Table({navigation}) {
 
@@ -104,7 +52,7 @@ export default function Table({navigation}) {
             <View style={table_styles.containerUp}>
                 <View style={table_styles.containerUpText}>
                     <TouchableOpacity onPress={() => {
-                        navigation.goBack();
+                        navigation.replace("Shop");
                     }}>
                         <MaterialCommunityIcons
                             name="keyboard-backspace"

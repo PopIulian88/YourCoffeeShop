@@ -8,46 +8,8 @@ import {editMenu_styles} from "../../Style/Admin_style/EditMenu_styles";
 import {Dropdown} from "react-native-element-dropdown";
 import IngredientTag from "../../Components/IngredientTag";
 import {MyContext} from "../../Context/MyContext";
-import {MY_IP} from "../../Help_Box/IP_help";
+import {fetchDataDeleteProduct, fetchDataGetProducts, fetchDataGetStocks} from "../../Help_Box/API_calls";
 
-async function fetchDataDeleteProduct(id){
-    const responseJson = await fetch(
-        "http://" + MY_IP + ":8080/product/delete/" + id,
-        {
-            method: "DELETE",
-            headers: {
-                'Content-Type' : 'application/json'
-            }
-        });
-
-    return responseJson;
-}
-
-async function fetchDataGetProducts(){
-    const responseJson = await fetch(
-        "http://" + MY_IP + ":8080/products",
-        {
-            method: "GET",
-            headers: {
-                'Content-Type' : 'application/json'
-            }
-        });
-
-    return await responseJson.json();
-}
-
-async function fetchDataGetStocks(){
-    const responseJson = await fetch(
-        "http://" + MY_IP + ":8080/stocks",
-        {
-            method: "GET",
-            headers: {
-                'Content-Type' : 'application/json'
-            }
-        });
-
-    return await responseJson.json();
-}
 
 export default function EditMenu({navigation}) {
 
@@ -74,7 +36,7 @@ export default function EditMenu({navigation}) {
     const renderDynamicIngredient = () => {
         return incredients.map((item, index) => {
             return (
-                <>
+                <View key={item.id}>
                     <IngredientTag
                         key={item.id}
                         data={item}
@@ -88,7 +50,7 @@ export default function EditMenu({navigation}) {
                         cantiti={quantitis[index]}
                     />
                     <Spacer height={5}/>
-                </>
+                </View>
             );
         });
     };
