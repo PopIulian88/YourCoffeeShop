@@ -177,7 +177,39 @@ export default function BottomButton({text="null", navigation, navTo="BACK", act
 
 
                         }else if(text === "Place order") {
-                            console.log(tableToEdit);
+                            //console.log(tableToEdit);
+
+
+                            let incredDict = {};
+                            //Creare dictionar cu incredientele folosite
+                            (tableToEdit.cart).forEach((prod, indexProd) => {
+                                (prod.incredients).forEach((incred, indexIncred) => {
+                                    // console.log(incred.name + " = " + ((prod.incredients_quantiti[indexIncred])
+                                    //                         * tableToEdit.products_quantiti[indexProd]).toFixed(2));
+
+                                    if(incred.name in incredDict){
+                                        incredDict[incred.name] = parseFloat( incredDict[incred.name] ) + parseFloat( ( parseFloat(prod.incredients_quantiti[indexIncred]) * parseFloat( tableToEdit.products_quantiti[indexProd]) ).toFixed(2) );
+                                    }else{
+                                        incredDict[incred.name] = ( parseFloat ( (prod.incredients_quantiti[indexIncred]) ) * parseFloat( tableToEdit.products_quantiti[indexProd] ) ).toFixed(2);
+                                    }
+                                })
+                            });
+
+                            //Update la baza de date in functie de calculele din dictionar
+                            (tableToEdit.cart).forEach((prod, indexProd) => {
+                                (prod.incredients).forEach((incred, indexIncred) => {
+
+                                    fetchDataUpdateStocks(
+                                        incred.id,
+                                        incred.name,
+                                        (parseFloat( incred.quantity ) - parseFloat ( incredDict[incred.name] )).toFixed(2),
+                                        incred.price,
+                                        incred.amount,
+                                        incred.unit
+                                    ).then(r => {})
+                                })
+                            });
+
 
                             fetchDataUpdateStoreTable(
                                 tableToEdit.id,
@@ -192,7 +224,6 @@ export default function BottomButton({text="null", navigation, navTo="BACK", act
                                 }).then(() => {
                                     navigation.replace("Store");
 
-                                    console.log( "-> " , tablesData)
                                 })
 
                             })
