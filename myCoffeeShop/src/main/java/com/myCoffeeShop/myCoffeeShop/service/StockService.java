@@ -60,4 +60,16 @@ public class StockService {
 
         return stockRepository.save(existingStock);
     }
+
+    public List<Stock> getLowStock() {
+        return stockRepository.findByQuantityLessThan(10);
+    }
+
+    public List<Stock> getSortByPret() {
+        return stockRepository.findAllByOrderByPrice();
+    }
+
+    public List<Stock> getSortByQuantity() {
+        return stockRepository.findAllByOrderByQuantity();
+    }
 }

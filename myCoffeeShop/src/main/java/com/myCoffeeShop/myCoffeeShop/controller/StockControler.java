@@ -47,4 +47,19 @@ public class StockControler {
     public void deleteStock(@PathVariable Long id) {
         stockService.deleteStock(id);
     }
+
+    @GetMapping("/lowStock")
+    public List<Stock> findLowStock() {
+        return stockService.getLowStock();
+    }
+
+    @GetMapping("/stock/sortPret")
+    public List<Stock> getSortedByPrice() {
+        return stockService.getSortByPret();
+    }
+
+    @GetMapping("/stock/sortQuantity")
+    public List<Stock> getSortedByQuantity() {
+        return stockService.getSortByQuantity();
+    }
 }

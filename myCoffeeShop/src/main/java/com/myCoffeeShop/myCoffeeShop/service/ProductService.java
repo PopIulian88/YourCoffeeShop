@@ -52,4 +52,12 @@ public class ProductService {
 
         return productRepository.save(existingProduct);
     }
+
+    public List<Product> getSortPrice() {
+        return productRepository.findAllByOrderByPrice();
+    }
+
+    public List<Product> getSortName() {
+        return productRepository.findAllByOrderByName();
+    }
 }

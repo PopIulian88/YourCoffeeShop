@@ -1,6 +1,7 @@
 package com.myCoffeeShop.myCoffeeShop.controller;
 
 import com.myCoffeeShop.myCoffeeShop.entity.Product;
+import com.myCoffeeShop.myCoffeeShop.entity.Stock;
 import com.myCoffeeShop.myCoffeeShop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -46,5 +47,15 @@ public class ProductControler {
     @DeleteMapping("/product/delete/{id}")
     public void deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
+    }
+
+    @GetMapping("/product/sortPrice")
+    public List<Product> getSortedByPrice() {
+        return productService.getSortPrice();
+    }
+
+    @GetMapping("/product/sortName")
+    public List<Product> getSortedByName() {
+        return productService.getSortName();
     }
 }
