@@ -9,12 +9,9 @@ import {addStock_styles} from "../../Style/Admin_style/AddStock_styles";
 export default function AddStock({navigation}) {
 
     const [name, onChangeName] = useState('');
-    const [quantity, onChangeQuantity] = useState('');
     const [price, onChangePrice] = useState('');
     const [amount, onChangeAmount] = useState('');
     const [unit, onChangeUnit] = useState('');
-
-
 
 
     return (
@@ -46,18 +43,6 @@ export default function AddStock({navigation}) {
                         value={name}
                         placeholder="Type Name"
                         // keyboardType="numeric"
-                    />
-                </View>
-
-                <View style={addStock_styles.containerTextImput}>
-                    <Text style={addStock_styles.text}>Quantity</Text>
-
-                    <TextInput
-                        style={addStock_styles.inputBox}
-                        onChangeText={onChangeQuantity}
-                        value={quantity}
-                        placeholder="Type Quantity"
-                        keyboardType="numeric"
                     />
                 </View>
 
@@ -102,13 +87,13 @@ export default function AddStock({navigation}) {
             </ScrollView>
 
             {
-                (name === '' || quantity === '' || price === '' || amount === '' || unit === '') ?
+                (name === '' || price === '' || amount === '' || unit === '') ?
                     <BottomButton text={"NOT DONE"} navigation={navigation} navTo={"BACK"} action={"STOCK"}/>
                     :
                     <BottomButton text={"ADD"} navigation={navigation} navTo={"BACK"} action={"STOCK"}
                                   stockData={{
                                       "name": name,
-                                      "quantity": quantity,
+                                      "quantity": 0,
                                       "price": price,
                                       "amount": amount,
                                       "unit": unit
