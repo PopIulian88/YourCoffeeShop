@@ -32,6 +32,7 @@ export default function Table({navigation}) {
                     photoLink={item.photoLink}
                     setOrderProducts={setOrderProducts}
                     setOrderQuantiti={setOrderQuantiti}
+                    OrderProducts={orderProducts}
 
                     navigation={navigation}
                 />
