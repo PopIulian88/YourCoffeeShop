@@ -13,9 +13,15 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
+    /**
+     * Creaza un produs
+     * @param product Produsul care are poramentrii pe care dorim sa ii adaugam
+     * @return Produsul creat
+     */
     public Product saveProduct(Product product) {
         return productRepository.save(product);
     }
+
 
     public List<Product> saveProducts(List<Product> products) {
         return productRepository.saveAll(products);
