@@ -13,6 +13,9 @@ public class StoreTableService {
     @Autowired
     private StoreTableRepository storeTableRepository;
 
+    /**
+     * Daca nu exista mese create in aplicatie creem automat 6 mese pentru restaurant
+     */
     public void initializeStoreTable(){
 
         List<StoreTable> myStoreTables = storeTableRepository.findAll();
@@ -58,18 +61,36 @@ public class StoreTableService {
         }
     }
 
+    /**
+     * Creem o masa noua
+     * @param storeTable Masa pe care dorim sa o creem
+     * @return Masa creata
+     */
     public StoreTable saveStoreTable(StoreTable storeTable){
         return storeTableRepository.save(storeTable);
     }
 
+    /**
+     * Afiseaza toate mesele existente
+     * @return Lista cu mesele existente
+     */
     public List<StoreTable> getStoreTable() {
         return storeTableRepository.findAll();
     }
 
+    /**
+     * Stergem o masa in functie de id-ul sau
+     * @param id id-ul mesei pe care dorim sa il stergem
+     */
     public void deleteStoreTable(Long id){
         storeTableRepository.deleteById(id);
     }
 
+    /**
+     * Modificam caracteristicile unei mese
+     * @param storeTable Masa cu caracteristicile dorite si cu id-ul mesei pe care orim sa o modificam
+     * @return Masa dupa modificarile dorite
+     */
     public StoreTable updateStoreTable(StoreTable storeTable) {
         StoreTable existngStoreTable = storeTableRepository.findById(storeTable.getId()).orElse(null);
         existngStoreTable.setTableNumber(storeTable.getTableNumber());
