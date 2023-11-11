@@ -1,1 +1,1 @@
-export const MY_IP = "172.24.48.1";
+export const MY_IP = "192.168.1.129";

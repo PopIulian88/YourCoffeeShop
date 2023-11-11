@@ -14,6 +14,44 @@ export async function fetchDataGetStocks(){
     return await responseJson.json();
 }
 
+export async function fetchDataGetLimitedStock(){
+    const responseJson = await fetch(
+        "http://" + MY_IP + ":8080/lowStock",
+        {
+            method: "GET",
+            headers: {
+                'Content-Type' : 'application/json'
+            }
+        });
+
+    return await responseJson.json();
+}
+
+export async function fetchDataGetSortedPriceStock(){
+    const responseJson = await fetch(
+        "http://" + MY_IP + ":8080/stock/sortPret",
+        {
+            method: "GET",
+            headers: {
+                'Content-Type' : 'application/json'
+            }
+        });
+
+    return await responseJson.json();
+}
+
+export async function fetchDataGetSortedQuantityStock(){
+    const responseJson = await fetch(
+        "http://" + MY_IP + ":8080/stock/sortQuantity",
+        {
+            method: "GET",
+            headers: {
+                'Content-Type' : 'application/json'
+            }
+        });
+
+    return await responseJson.json();
+}
 export async function fetchDataAddStocks(name, quantity, price, amount, unit){
     const responseJson = await fetch(
         "http://" + MY_IP + ":8080/addStock",
@@ -72,6 +110,32 @@ export async function fetchDataDeleteStocks(id) {
 export async function fetchDataGetProducts(){
     const responseJson = await fetch(
         "http://" + MY_IP + ":8080/products",
+        {
+            method: "GET",
+            headers: {
+                'Content-Type' : 'application/json'
+            }
+        });
+
+    return await responseJson.json();
+}
+
+export async function fetchDataGetSortedPriceProducts(){
+    const responseJson = await fetch(
+        "http://" + MY_IP + ":8080/product/sortPrice",
+        {
+            method: "GET",
+            headers: {
+                'Content-Type' : 'application/json'
+            }
+        });
+
+    return await responseJson.json();
+}
+
+export async function fetchDataGetSortedNameProducts(){
+    const responseJson = await fetch(
+        "http://" + MY_IP + ":8080/product/sortName",
         {
             method: "GET",
             headers: {

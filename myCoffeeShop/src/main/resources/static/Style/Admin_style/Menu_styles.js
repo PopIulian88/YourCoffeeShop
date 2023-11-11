@@ -50,6 +50,39 @@ export const menu_styles = StyleSheet.create({
 
     },
 
+    undertitleContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+    },
+
+    inputBox: {
+        flex: 1,
+        height: 50,
+        padding: 10,
+        borderRadius: 20,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "white",
+    },
+
+    placeholderStyle: {
+        fontSize: 16,
+    },
+
+    selectedTextStyle: {
+        fontSize: 16,
+    },
+
+    inputSearchStyle: {
+        fontSize: 16,
+    },
+
+    iconStyle: {
+        height: 30,
+        width: 30,
+    },
+
     containerScrollView: {
         flexGrow: 1,
         width: "100%",

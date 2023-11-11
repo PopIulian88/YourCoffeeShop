@@ -6,13 +6,27 @@ import Spacer from "../../Components/Spacer";
 import {BACKGROUND_COLOR, DARK_GREEN} from "../../Help_Box/Colors";
 import {useContext, useEffect, useState} from "react";
 import {MyContext} from "../../Context/MyContext";
-import {fetchDataGetProducts} from "../../Help_Box/API_calls";
+import {
+    fetchDataGetLimitedStock,
+    fetchDataGetProducts, fetchDataGetSortedNameProducts, fetchDataGetSortedPriceProducts,
+    fetchDataGetSortedPriceStock,
+    fetchDataGetSortedQuantityStock
+} from "../../Help_Box/API_calls";
+import {stock_styles} from "../../Style/Admin_style/Stock_styles";
+import {Dropdown} from "react-native-element-dropdown";
 
 
 export default function MenuScreen({navigation}) {
     const [curentLine, setCurentLine] = useState(1);
 
     const {productData, setProductData} = useContext(MyContext);
+
+    const [isFocus, setIsFocus] = useState(false);
+    const [filterSelected, setFilterSelected] = useState();
+    const filtersData = [
+        {label: "Price", value: '1'},
+        {label: "Name", value: '2'},
+    ];
 
     const renderDynamicProduct = () => {
         return productData.map((item) => {
@@ -65,16 +79,62 @@ export default function MenuScreen({navigation}) {
 
                 <Spacer height={5}/>
 
-                <TouchableOpacity style={menu_styles.addProduct} onPress={() => {
-                    navigation.navigate("AddProduct");
-                }}>
-                    <MaterialIcons
-                        name="add"
-                        size={50}
-                        color="black"
-                        style={menu_styles.plusIcon}
+                <View style={menu_styles.undertitleContainer}>
+                    <View style={{flex: 1}}>
+
+                    </View>
+                    <Spacer/>
+
+                    <TouchableOpacity style={menu_styles.addProduct} onPress={() => {
+                        navigation.navigate("AddProduct");
+                    }}>
+                        <MaterialIcons
+                            name="add"
+                            size={50}
+                            color="black"
+                            style={menu_styles.plusIcon}
+                        />
+                    </TouchableOpacity>
+
+                    <Spacer height={10}/>
+
+                    <Dropdown
+                        style={menu_styles.inputBox}
+                        data={filtersData}
+                        // search
+                        placeholderStyle={menu_styles.placeholderStyle}
+                        selectedTextStyle={menu_styles.selectedTextStyle}
+                        inputSearchStyle={menu_styles.inputSearchStyle}
+                        iconStyle={menu_styles.iconStyle}
+
+                        labelField="label"
+                        valueField="value"
+                        placeholder={!isFocus ? 'Filter' : '...'}
+                        // searchPlaceholder="Search..."
+                        value={filterSelected}
+
+                        onChange={item => {
+                            // console.log(item.value);
+                            if(item.value == 1) {
+                                console.log("GAY1")
+                                fetchDataGetSortedPriceProducts().then(respons => {
+                                    setProductData(respons)
+                                })
+
+                            }else if(item.value == 2) {
+                                console.log("GAY2")
+                                fetchDataGetSortedNameProducts().then(respons => {
+                                    setProductData(respons)
+                                })
+                            }
+                            setFilterSelected(item);
+                            setIsFocus(false);
+                        }}
+
+                        onFocus={() => setIsFocus(true)}
+                        onBlur={() => setIsFocus(false)}
                     />
-                </TouchableOpacity>
+                </View>
             </View>
 
             <ScrollView style={menu_styles.containerScrollView} contentContainerStyle={{alignItems: "center"}} >
