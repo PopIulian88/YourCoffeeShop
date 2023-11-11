@@ -62,22 +62,23 @@ export default function MenuScreen({navigation}) {
                     <Image source={require("../../Poze/Logo.png")} style={menu_styles.logo}/>
                 </View>
 
-                <View style={menu_styles.tabContainer}>
-                    <TouchableOpacity style={menu_styles.tabTextContainer} onPress={() => setCurentLine(1)}>
-                        <Text style={{fontSize: 28}}>Drinks</Text>
-                        <View style={[menu_styles.line,curentLine === 1 ? {backgroundColor: DARK_GREEN} :
-                            {backgroundColor: BACKGROUND_COLOR}]}></View>
-                    </TouchableOpacity>
+                {/*BARA DE MANCARE SI BAUTURI -> Adio bun prieten, ne vom revedea curand*/}
+                {/*<View style={menu_styles.tabContainer}>*/}
+                {/*    <TouchableOpacity style={menu_styles.tabTextContainer} onPress={() => setCurentLine(1)}>*/}
+                {/*        <Text style={{fontSize: 28}}>Drinks</Text>*/}
+                {/*        <View style={[menu_styles.line,curentLine === 1 ? {backgroundColor: DARK_GREEN} :*/}
+                {/*            {backgroundColor: BACKGROUND_COLOR}]}></View>*/}
+                {/*    </TouchableOpacity>*/}
 
 
-                    <TouchableOpacity style={menu_styles.tabTextContainer} onPress={() => setCurentLine(2)}>
-                        <Text style={{fontSize: 28}}>Food</Text>
-                        <View style={[menu_styles.line,curentLine === 2 ? {backgroundColor: DARK_GREEN} :
-                            {backgroundColor: BACKGROUND_COLOR}]}></View>
-                    </TouchableOpacity>
-                </View>
+                {/*    <TouchableOpacity style={menu_styles.tabTextContainer} onPress={() => setCurentLine(2)}>*/}
+                {/*        <Text style={{fontSize: 28}}>Food</Text>*/}
+                {/*        <View style={[menu_styles.line,curentLine === 2 ? {backgroundColor: DARK_GREEN} :*/}
+                {/*            {backgroundColor: BACKGROUND_COLOR}]}></View>*/}
+                {/*    </TouchableOpacity>*/}
+                {/*</View>*/}
 
-                <Spacer height={5}/>
+                {/*<Spacer height={5}/>*/}
 
                 <View style={menu_styles.undertitleContainer}>
                     <View style={{flex: 1}}>

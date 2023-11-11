@@ -103,22 +103,23 @@ export default function Table({navigation}) {
                 <Spacer height={10}/>
 
 
-                <View style={table_styles.tabContainer}>
-                    <TouchableOpacity style={table_styles.tabTextContainer} onPress={() => setCurentLine(1)}>
-                        <Text style={{fontSize: 28}}>Drinks</Text>
-                        <View style={[table_styles.line,curentLine === 1 ? {backgroundColor: DARK_GREEN} :
-                            {backgroundColor: BACKGROUND_COLOR}]}></View>
-                    </TouchableOpacity>
+                {/*BARA DE MANCARE SI BAUTURI -> Adio bun prieten, ne vom revedea curand*/}
+                {/*<View style={table_styles.tabContainer}>*/}
+                {/*    <TouchableOpacity style={table_styles.tabTextContainer} onPress={() => setCurentLine(1)}>*/}
+                {/*        <Text style={{fontSize: 28}}>Drinks</Text>*/}
+                {/*        <View style={[table_styles.line,curentLine === 1 ? {backgroundColor: DARK_GREEN} :*/}
+                {/*            {backgroundColor: BACKGROUND_COLOR}]}></View>*/}
+                {/*    </TouchableOpacity>*/}
 
 
-                    <TouchableOpacity style={table_styles.tabTextContainer} onPress={() => setCurentLine(2)}>
-                        <Text style={{fontSize: 28}}>Food</Text>
-                        <View style={[table_styles.line,curentLine === 2 ? {backgroundColor: DARK_GREEN} :
-                            {backgroundColor: BACKGROUND_COLOR}]}></View>
-                    </TouchableOpacity>
-                </View>
+                {/*    <TouchableOpacity style={table_styles.tabTextContainer} onPress={() => setCurentLine(2)}>*/}
+                {/*        <Text style={{fontSize: 28}}>Food</Text>*/}
+                {/*        <View style={[table_styles.line,curentLine === 2 ? {backgroundColor: DARK_GREEN} :*/}
+                {/*            {backgroundColor: BACKGROUND_COLOR}]}></View>*/}
+                {/*    </TouchableOpacity>*/}
+                {/*</View>*/}
 
-                <Spacer height={5}/>
+                {/*<Spacer height={5}/>*/}
 
             </View>
 
