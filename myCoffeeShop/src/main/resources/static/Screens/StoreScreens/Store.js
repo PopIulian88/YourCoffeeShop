@@ -3,7 +3,6 @@ import Shop from "./Shop";
 import Table from "./Table";
 import FinishOrder from "./FinishOrder";
 import Checkout from "./Checkout";
-import {MY_IP} from "../../Help_Box/IP_help";
 import {useContext, useEffect} from "react";
 import {MyContext} from "../../Context/MyContext";
 import {fetchDataGetStoreTable, fetchDatainitStoreTables} from "../../Help_Box/API_calls";

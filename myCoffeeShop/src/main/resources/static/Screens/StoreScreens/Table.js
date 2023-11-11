@@ -6,12 +6,18 @@ import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {useContext, useEffect, useState} from "react";
 import OrderTableComponent from "../../Components/OrderTableComponent";
 import {MyContext} from "../../Context/MyContext";
-import {fetchDataGetProducts, fetchDataGetStoreTable, fetchDataUpdateStoreTable} from "../../Help_Box/API_calls";
+import {
+    fetchDataGetProducts,
+    fetchDataGetStocks,
+    fetchDataGetStoreTable,
+    fetchDataUpdateStoreTable
+} from "../../Help_Box/API_calls";
 
 
 export default function Table({navigation}) {
 
     const {productData, setProductData} = useContext(MyContext);
+    const {stocksData, setStocksData} = useContext(MyContext);
     const {tableToEdit, setTableToEdit} = useContext(MyContext);
 
     const [curentLine, setCurentLine] = useState(1);
@@ -44,6 +50,12 @@ export default function Table({navigation}) {
         fetchDataGetProducts().then(respons => {
             setProductData(respons)
         })
+
+        //POATE STRICA ASTA
+        fetchDataGetStocks().then(respons => {
+            setStocksData(respons)
+        })
+
         // console.log(productData);
     }, [])
 

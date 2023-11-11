@@ -13,6 +13,7 @@ export default function OrderTableComponent({data, name="Name", price=0, navigat
 
     const [counter, setCounter] = useState(0);
 
+
     const {tableToEdit, setTableToEdit} = useContext(MyContext);
 
     // setOrderProducts(tableToEdit.cart);
@@ -82,21 +83,40 @@ export default function OrderTableComponent({data, name="Name", price=0, navigat
                         // console.log(tableToEdit.cart);
                         // console.log(tableToEdit.products_quantiti)
 
+                        // console.log("---------------------")
+
                         // console.log(OrderProducts)
 
+                        // console.log(data)
+                        // console.log(data.incredients)
+                        // console.log(data.incredients_quantiti)
 
-                        if((OrderProducts).filter(e => e.id === data.id).length > 0) {
-                            alert("This product is already in")
-                        }else {
-                            if(counter > 0) {
-                                setOrderProducts(prevState => [...prevState, data]);
-                                setOrderQuantiti(prevState => [...prevState, counter]);
+                        if(counter > 0) {
+                            let insuficientStockFlag = false;
+
+                            //Pentru a verifica daca este suficient stock pentru acest produs
+                            data.incredients.forEach((incred, indexIncred) => {
+                                if (incred.quantity < (counter * data.incredients_quantiti[indexIncred])) {
+                                    insuficientStockFlag = true;
+                                }
+                            })
+
+                            if(!insuficientStockFlag) {
+                                if ((OrderProducts).filter(e => e.id === data.id).length > 0) {
+                                    alert("This product is already in")
+                                } else {
+                                    if (counter > 0) {
+                                        setOrderProducts(prevState => [...prevState, data]);
+                                        setOrderQuantiti(prevState => [...prevState, counter]);
 
 
-                                setCounter(0);
+                                        setCounter(0);
+                                    }
+                                }
+                            }else {
+                                alert("Insuficient stock");
                             }
                         }
-
                     }}>
                         <Text style={orderTableComponent_styles.addToCartText}>Add to cart</Text>
                     </TouchableOpacity>
