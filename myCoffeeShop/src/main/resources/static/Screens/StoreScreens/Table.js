@@ -52,7 +52,7 @@ export default function Table({navigation}) {
             <View style={table_styles.containerUp}>
                 <View style={table_styles.containerUpText}>
                     <TouchableOpacity onPress={() => {
-                        navigation.replace("Shop");
+                        navigation.replace("Store");
                     }}>
                         <MaterialCommunityIcons
                             name="keyboard-backspace"

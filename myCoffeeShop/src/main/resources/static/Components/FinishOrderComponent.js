@@ -24,7 +24,7 @@ export default function FinishOrderComponent({data, myIndex, name="Name", price=
 
                 <View style={finishOrderComponent_styles.containerButton}>
                     <Text style={finishOrderComponent_styles.amountText}>x{amount}</Text>
-                    <LilButton text="REMOVE" color={MY_RED} action={"ORDER"} myIndex={myIndex} />
+                    <LilButton text="REMOVE" color={MY_RED} action={"ORDER"} myIndex={myIndex} navigation={navigation}/>
                 </View>
 
             </View>

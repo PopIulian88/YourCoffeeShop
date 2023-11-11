@@ -7,8 +7,8 @@ import {MyContext} from "../Context/MyContext";
 import {
     fetchDataDeleteStocks,
     fetchDataGetProducts, fetchDataGetProfit,
-    fetchDataGetStocks, fetchDataUpdateProfit,
-    fetchDataUpdateStocks
+    fetchDataGetStocks, fetchDataGetStoreTable, fetchDataUpdateProfit,
+    fetchDataUpdateStocks, fetchDataUpdateStoreTable
 } from "../Help_Box/API_calls";
 
 export default function LilButton({data, text = "null", color = "black", navigation, action = "null", myIndex}) {
@@ -22,13 +22,13 @@ export default function LilButton({data, text = "null", color = "black", navigat
 
     const {profitData, setProfitData} = useContext(MyContext);
 
-    // const {tableToEdit, setTableToEdit} = useContext(MyContext);
+    const {tableToEdit, setTableToEdit} = useContext(MyContext);
 
 
     const [addModalNumber, setAddModalNumber] = useState("");
 
-    // const [finishOrderProducts, setFinishOrderProducts]= useState(tableToEdit.cart)
-    // const [finishOrderQuantiti, setFinishOrderQuantiti]= useState(tableToEdit.products_quantiti)
+    const [finishOrderProducts, setFinishOrderProducts]= useState(tableToEdit.cart)
+    const [finishOrderQuantiti, setFinishOrderQuantiti]= useState(tableToEdit.products_quantiti)
 
 
     return (
@@ -52,36 +52,37 @@ export default function LilButton({data, text = "null", color = "black", navigat
                         })
 
                     }).catch(e => {
-                        console.log(e);
+                        // console.log(e);
                     });
                 } else if (action === "ORDER") {
                     // console.log(tableToEdit);
                     // console.log(myIndex);
-
+                    //
                     // console.log(finishOrderProducts);
                     // console.log(finishOrderQuantiti);
 
-                    // const updatedFinishOrderProducts = (tableToEdit.cart).filter((item, index) => index !== myIndex);
-                    // // setFinishOrderProducts(updatedFinishOrderProducts);
-                    //
-                    // const updatedFinishOrderQuantiti = (tableToEdit.products_quantiti).filter((item, index) => index !== myIndex);
-                    // // setFinishOrderQuantiti(updatedFinishOrderQuantiti);
+                    const updatedFinishOrderProducts = (tableToEdit.cart).filter((item, index) => index !== myIndex);
+                    setFinishOrderProducts(updatedFinishOrderProducts);
 
-                    // fetchDataUpdateStoreTable(
-                    //     tableToEdit.id,
-                    //     tableToEdit.tableNumber,
-                    //     tableToEdit.state,
-                    //     updatedFinishOrderProducts,
-                    //     updatedFinishOrderQuantiti
-                    // ).then(response => {
-                    //     fetchDataGetStoreTable().then(response => {
-                    //         console.log(response);
-                    //         setTableToEdit(response[myIndex]);
-                    //     })
-                    // });
+                    const updatedFinishOrderQuantiti = (tableToEdit.products_quantiti).filter((item, index) => index !== myIndex);
+                    setFinishOrderQuantiti(updatedFinishOrderQuantiti);
+
+                    fetchDataUpdateStoreTable(
+                        tableToEdit.id,
+                        tableToEdit.tableNumber,
+                        tableToEdit.state,
+                        updatedFinishOrderProducts,
+                        updatedFinishOrderQuantiti
+                    ).then(response => {
+                        fetchDataGetStoreTable().then(response => {
+                            setTableToEdit(response[tableToEdit.tableNumber - 1]);
+                        })
+                    });
+
+                    navigation.replace("FinishOrder");
 
 
-                    alert("You have to buy the Pass for this features");
+                    // alert("You have to buy the Pass for this features");
                 }
             }
         }}>

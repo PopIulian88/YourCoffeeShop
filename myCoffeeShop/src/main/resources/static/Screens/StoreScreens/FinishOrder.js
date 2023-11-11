@@ -46,7 +46,7 @@ export default function FinishOrder({navigation}) {
             <View style={finishOrder_styles.containerUp}>
                 <View style={finishOrder_styles.containerUpText}>
                     <TouchableOpacity onPress={() => {
-                        navigation.goBack();
+                        navigation.replace("Table");
                     }}>
                         <MaterialCommunityIcons
                             name="keyboard-backspace"
