@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Clasa care se ocupa cu  implementarea metodelor pentru Clasa Table
+ */
 @Service
 public class StoreTableService {
     @Autowired

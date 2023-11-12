@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Clasa unde se implementeaza metodele si rutele pentru clasa Profit
+ */
 @RestController
 public class ProfitControler {
 

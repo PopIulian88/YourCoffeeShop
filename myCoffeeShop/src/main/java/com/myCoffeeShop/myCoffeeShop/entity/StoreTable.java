@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/**
+ * Clasa Table cu toate campurile definite
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

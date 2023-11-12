@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/**
+ * Clasa Profit cu toate campurile definite
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

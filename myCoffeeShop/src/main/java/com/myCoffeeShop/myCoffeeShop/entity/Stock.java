@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Clasa Stock cu toate campurile definite
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
