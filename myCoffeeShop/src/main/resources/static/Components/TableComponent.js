@@ -22,8 +22,6 @@ export default function TableComponent({dataTable, type=0, navigation}) {
 
 
     function onPressTableHandler() {
-        // setTableType((tableType + 1) % 3);
-        // console.log(dataTable);
 
         if(tableType === 0) {
             setTableToEdit(dataTable)
@@ -49,7 +47,6 @@ export default function TableComponent({dataTable, type=0, navigation}) {
             })
 
             alert("The table is clean and readdy");
-            // setTableType(0);
         }
     }
 

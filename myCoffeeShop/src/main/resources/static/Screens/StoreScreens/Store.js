@@ -7,7 +7,6 @@ import {useContext, useEffect} from "react";
 import {MyContext} from "../../Context/MyContext";
 import {fetchDataGetStoreTable, fetchDatainitStoreTables} from "../../Help_Box/API_calls";
 
-
 const Stack = createNativeStackNavigator()
 
 export default function Store() {

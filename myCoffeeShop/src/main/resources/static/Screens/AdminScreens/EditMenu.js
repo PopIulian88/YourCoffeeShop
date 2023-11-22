@@ -10,7 +10,6 @@ import IngredientTag from "../../Components/IngredientTag";
 import {MyContext} from "../../Context/MyContext";
 import {fetchDataDeleteProduct, fetchDataGetProducts, fetchDataGetStocks} from "../../Help_Box/API_calls";
 
-
 export default function EditMenu({navigation}) {
 
     const {stocksData, setStocksData} = useContext(MyContext);
@@ -59,7 +58,6 @@ export default function EditMenu({navigation}) {
         fetchDataGetStocks().then(respons => {
             setStocksData(respons)
         })
-        // console.log(stocksData);
     }, [])
 
     return (
@@ -79,7 +77,6 @@ export default function EditMenu({navigation}) {
                 <Text style={editMenu_styles.textHeader}>Edit Product</Text>
 
                 <TouchableOpacity onPress={() => {
-                    // console.log(productToEdit);
                     fetchDataDeleteProduct(productToEdit.id).then(r => {
 
                         fetchDataGetProducts().then(respons => {
@@ -108,7 +105,6 @@ export default function EditMenu({navigation}) {
                         onChangeText={onChangeName}
                         value={name}
                         placeholder="Type Name"
-                        // keyboardType="numeric"
                     />
                 </View>
 
@@ -120,7 +116,6 @@ export default function EditMenu({navigation}) {
                         onChangeText={onChangeDescripsion}
                         value={descripsion}
                         placeholder="Type Description"
-                        // keyboardType="numeric"
                     />
                 </View>
 
@@ -144,7 +139,6 @@ export default function EditMenu({navigation}) {
                         onChangeText={onChangePhotoLink}
                         value={photoLink}
                         placeholder="Type Photo Link"
-                        // keyboardType="numeric"
                     />
                 </View>
 
@@ -167,7 +161,6 @@ export default function EditMenu({navigation}) {
                         value={incredient}
 
                         onChange={item => {
-                            // console.log(item);
                             setIncredient(item);
                             setIsFocus(false);
                         }}

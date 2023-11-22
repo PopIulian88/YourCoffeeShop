@@ -27,7 +27,6 @@ export const menuComponent_styles = StyleSheet.create({
     image: {
         height: "100%",
         width: "100%",
-        resizeMode: "contain",
         borderRadius: 20,
     },
 

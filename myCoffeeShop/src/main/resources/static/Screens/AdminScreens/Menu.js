@@ -5,7 +5,6 @@ import AddProduct from "./AddProduct";
 
 const Stack = createNativeStackNavigator()
 
-
 export default function Stock({navigation}) {
     return (
         <Stack.Navigator initialRouteName={"MenuScreen"}>

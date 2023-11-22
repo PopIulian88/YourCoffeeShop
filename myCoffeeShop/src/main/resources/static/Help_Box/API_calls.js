@@ -235,6 +235,22 @@ export async function fetchDataUpdateProfit(id, curentProfit, historic){
 
 }
 
+export async function fetchDataInitProfile(curentProfit, historic){
+
+    const responseJson = await fetch(
+        "http://" + MY_IP + ":8080/initProfile",
+        {
+            method: "POST",
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({
+                "curentProfit": curentProfit,
+                "historic": historic
+            })
+        });
+}
+
 
 //TABLE api
 

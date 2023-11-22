@@ -7,12 +7,8 @@ import {useContext, useEffect, useState} from "react";
 import {addProduct_styles} from "../../Style/Admin_style/AddProduct_styles";
 import {Dropdown} from "react-native-element-dropdown";
 import IngredientTag from "../../Components/IngredientTag";
-import {MY_IP} from "../../Help_Box/IP_help";
 import {MyContext} from "../../Context/MyContext";
 import {fetchDataGetStocks} from "../../Help_Box/API_calls";
-
-
-
 
 export default function AddProduct({navigation}) {
 
@@ -58,7 +54,6 @@ export default function AddProduct({navigation}) {
         fetchDataGetStocks().then(respons => {
             setStocksData(respons)
         })
-        // console.log(stocksData);
     }, [])
 
     return (
@@ -89,7 +84,6 @@ export default function AddProduct({navigation}) {
                         onChangeText={onChangeName}
                         value={name}
                         placeholder="Type Name"
-                        // keyboardType="numeric"
                     />
                 </View>
 
@@ -101,7 +95,6 @@ export default function AddProduct({navigation}) {
                         onChangeText={onChangeDescripsion}
                         value={descripsion}
                         placeholder="Type Description"
-                        // keyboardType="numeric"
                     />
                 </View>
 
@@ -125,7 +118,6 @@ export default function AddProduct({navigation}) {
                         onChangeText={onChangePhotoLink}
                         value={photoLink}
                         placeholder="Type Photo Link"
-                        // keyboardType="numeric"
                     />
                 </View>
 
@@ -148,7 +140,6 @@ export default function AddProduct({navigation}) {
                         value={incredient}
 
                         onChange={item => {
-                            // console.log(item);
                             setIncredient(item);
                             setIsFocus(false);
                         }}

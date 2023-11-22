@@ -4,7 +4,6 @@ import {orderTableComponent_styles} from "../Style/Components_style/OrderTableCo
 import {table_styles} from "../Style/Store_style/Table_styles";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {useContext, useState} from "react";
-import {MY_IP} from "../Help_Box/IP_help";
 import {MyContext} from "../Context/MyContext";
 
 export default function OrderTableComponent({data, name="Name", price=0, navigation,
@@ -12,12 +11,6 @@ export default function OrderTableComponent({data, name="Name", price=0, navigat
                                                 setOrderProducts, OrderProducts, setOrderQuantiti  }) {
 
     const [counter, setCounter] = useState(0);
-
-
-    const {tableToEdit, setTableToEdit} = useContext(MyContext);
-
-    // setOrderProducts(tableToEdit.cart);
-    // setOrderQuantiti(tableToEdit.products_quantiti);
 
     return (
         <>
@@ -73,23 +66,6 @@ export default function OrderTableComponent({data, name="Name", price=0, navigat
                     </View>
 
                     <TouchableOpacity style={orderTableComponent_styles.addToCartButton} onPress={() => {
-                        // console.log(counter);
-                        // console.log(data);
-                        // console.log(tableToEdit);
-
-                        // console.log(tableToEdit.id)
-                        // console.log(tableToEdit.tableNumber)
-                        // console.log(tableToEdit.state)
-                        // console.log(tableToEdit.cart);
-                        // console.log(tableToEdit.products_quantiti)
-
-                        // console.log("---------------------")
-
-                        // console.log(OrderProducts)
-
-                        // console.log(data)
-                        // console.log(data.incredients)
-                        // console.log(data.incredients_quantiti)
 
                         if(counter > 0) {
                             let insuficientStockFlag = false;

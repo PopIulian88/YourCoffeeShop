@@ -55,7 +55,6 @@ export default function StockScreen({navigation}) {
         fetchDataGetProfit().then(respons => {
             setProfitData(respons)
         })
-        // console.log(stocksData);
     }, [])
 
     return (
@@ -85,7 +84,6 @@ export default function StockScreen({navigation}) {
                     <Dropdown
                         style={stock_styles.inputBox}
                         data={filtersData}
-                        // search
                         placeholderStyle={stock_styles.placeholderStyle}
                         selectedTextStyle={stock_styles.selectedTextStyle}
                         inputSearchStyle={stock_styles.inputSearchStyle}
@@ -94,23 +92,18 @@ export default function StockScreen({navigation}) {
                         labelField="label"
                         valueField="value"
                         placeholder={!isFocus ? 'Filter' : '...'}
-                        // searchPlaceholder="Search..."
                         value={filterSelected}
 
                         onChange={item => {
-                            // console.log(item.value);
                             if(item.value == 1) {
-                                // console.log("GAY1")
                                 fetchDataGetLimitedStock().then(respons => {
                                     setStocksData(respons)
                                 })
                             }else if(item.value == 2) {
-                                // console.log("GAY2")
                                 fetchDataGetSortedPriceStock().then(respons => {
                                     setStocksData(respons)
                                 })
                             }else if(item.value == 3) {
-                                // console.log("GAY3")
                                 fetchDataGetSortedQuantityStock().then(respons => {
                                     setStocksData(respons)
                                 })

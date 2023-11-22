@@ -9,12 +9,9 @@ import {MyContext} from "../../Context/MyContext";
 export default function Checkout({navigation}) {
 
     const {tableToEdit, setTableToEdit} = useContext(MyContext);
-    const [totalPrice, setTotalPrice] =useState(0)
-
 
     const renderDynamicCheckout = () => {
         return (tableToEdit.cart).map((item, index) => {
-            // setTotalPrice(rest => rest + item.price);
 
             return (
                 <CheckoutComponent
@@ -35,7 +32,6 @@ export default function Checkout({navigation}) {
 
         return (tableToEdit.cart).reduce((suma, element, index) => suma + (element.price) * tableToEdit.products_quantiti[index], 0);
     };
-
 
     return (
         <View style={checkout_styles.container}>

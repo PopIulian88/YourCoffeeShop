@@ -5,7 +5,6 @@ import AddStock from "./AddStock";
 
 const Stack = createNativeStackNavigator()
 
-
 export default function Stock({navigation}) {
     return (
         <Stack.Navigator initialRouteName={"StockScreen"}>

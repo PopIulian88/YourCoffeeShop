@@ -6,85 +6,14 @@ import Admin from "./Screens/AdminScreens/Admin";
 import Store from "./Screens/StoreScreens/Store";
 import {MyContext} from "./Context/MyContext";
 import {useEffect, useState} from "react";
-import {MY_IP} from "./Help_Box/IP_help";
+import {
+    fetchDataGetStocks,
+    fetchDataGetStoreTable,
+    fetchDataInitProfile,
+    fetchDatainitStoreTables
+} from "./Help_Box/API_calls";
 
 const Stack = createNativeStackNavigator()
-
-async function fetchDataGetStocks(){
-    const responseJson = await fetch(
-        "http://" + MY_IP + ":8080/stocks",
-        {
-            method: "GET",
-            headers: {
-                'Content-Type' : 'application/json'
-            }
-        });
-
-    return await responseJson.json();
-}
-
-
-async function fetchDataInitProfile(curentProfit, historic){
-
-    const responseJson = await fetch(
-        "http://" + MY_IP + ":8080/initProfile",
-        {
-            method: "POST",
-            headers: {
-                'Content-Type' : 'application/json'
-            },
-            body: JSON.stringify({
-                "curentProfit": curentProfit,
-                "historic": historic
-            })
-        });
-
-
-    // if(responseJson.ok){
-    //     console.log("Salvare corecta");
-    // }else{
-    //     console.log("Add PRODUCT fail");
-    // }
-}
-
-async function fetchDataGetProfit(){
-    const responseJson = await fetch(
-        "http://" + MY_IP + ":8080/profits",
-        {
-            method: "GET",
-            headers: {
-                'Content-Type' : 'application/json'
-            }
-        });
-
-    return await responseJson.json();
-}
-
-async function fetchDataGetStoreTable(){
-    const responseJson = await fetch(
-        "http://" + MY_IP + ":8080/StoreTables",
-        {
-            method: "GET",
-            headers: {
-                'Content-Type' : 'application/json'
-            }
-        });
-
-    return await responseJson.json();
-}
-
-async function fetchDatainitStoreTables(){
-    const responseJson = await fetch(
-        "http://" + MY_IP + ":8080/initStoreTable",
-        {
-            method: "POST",
-            headers: {
-                'Content-Type' : 'application/json'
-            },
-        });
-
-    return responseJson;
-}
 
 export default function App() {
 
@@ -114,7 +43,6 @@ export default function App() {
             setTablesData(response);
         })
 
-        // console.log(stocksData);
     }, [])
 
 

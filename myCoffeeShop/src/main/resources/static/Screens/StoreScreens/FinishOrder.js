@@ -12,12 +12,6 @@ export default function FinishOrder({navigation}) {
 
     const {tableToEdit, setTableToEdit} = useContext(MyContext);
 
-    // console.log(tableToEdit.cart[0].name);
-
-    // console.log(tableToEdit.products_quantiti[0]);
-
-
-
     const renderDynamicFinishOrder = () => {
         return (tableToEdit.cart).map((item, index) => {
             return (
@@ -29,7 +23,6 @@ export default function FinishOrder({navigation}) {
                     name={item.name}
                     price={item.price}
                     amount={tableToEdit.products_quantiti[index]}
-                    // amount={1}
 
                     photoLink={item.photoLink}
 
@@ -38,8 +31,6 @@ export default function FinishOrder({navigation}) {
             );
         });
     };
-
-    // console.log(tablesData);
 
     return (
         <View style={finishOrder_styles.container}>

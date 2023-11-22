@@ -20,8 +20,6 @@ export default function Table({navigation}) {
     const {stocksData, setStocksData} = useContext(MyContext);
     const {tableToEdit, setTableToEdit} = useContext(MyContext);
 
-    const [curentLine, setCurentLine] = useState(1);
-
     const [orderProducts, setOrderProducts] = useState(tableToEdit.cart);
     const [orderQuantiti, setOrderQuantiti] = useState(tableToEdit.products_quantiti);
 
@@ -51,12 +49,10 @@ export default function Table({navigation}) {
             setProductData(respons)
         })
 
-        //POATE STRICA ASTA
         fetchDataGetStocks().then(respons => {
             setStocksData(respons)
         })
 
-        // console.log(productData);
     }, [])
 
 
@@ -84,11 +80,6 @@ export default function Table({navigation}) {
 
                 <TouchableOpacity style={table_styles.orderButton} onPress={() => {
 
-                    // console.log("--------------")
-                    // console.log(orderProducts);
-                    // console.log(orderQuantiti);
-                    // console.log("--------------")
-
                     fetchDataUpdateStoreTable(
                         tableToEdit.id,
                         tableToEdit.tableNumber,
@@ -101,8 +92,6 @@ export default function Table({navigation}) {
                             setTableToEdit(respons[tableToEdit.tableNumber - 1]);
                         }).then(() => {
 
-                            // setOrderProducts([]);
-                            // setOrderQuantiti([]);
                             navigation.navigate("FinishOrder");
                         })
                     });
@@ -114,25 +103,6 @@ export default function Table({navigation}) {
                 <Spacer height={10}/>
                 <View style={table_styles.blackLine}></View>
                 <Spacer height={10}/>
-
-
-                {/*BARA DE MANCARE SI BAUTURI -> Adio bun prieten, ne vom revedea curand*/}
-                {/*<View style={table_styles.tabContainer}>*/}
-                {/*    <TouchableOpacity style={table_styles.tabTextContainer} onPress={() => setCurentLine(1)}>*/}
-                {/*        <Text style={{fontSize: 28}}>Drinks</Text>*/}
-                {/*        <View style={[table_styles.line,curentLine === 1 ? {backgroundColor: DARK_GREEN} :*/}
-                {/*            {backgroundColor: BACKGROUND_COLOR}]}></View>*/}
-                {/*    </TouchableOpacity>*/}
-
-
-                {/*    <TouchableOpacity style={table_styles.tabTextContainer} onPress={() => setCurentLine(2)}>*/}
-                {/*        <Text style={{fontSize: 28}}>Food</Text>*/}
-                {/*        <View style={[table_styles.line,curentLine === 2 ? {backgroundColor: DARK_GREEN} :*/}
-                {/*            {backgroundColor: BACKGROUND_COLOR}]}></View>*/}
-                {/*    </TouchableOpacity>*/}
-                {/*</View>*/}
-
-                {/*<Spacer height={5}/>*/}
 
             </View>
 

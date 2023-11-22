@@ -47,7 +47,6 @@ export default function EditStock({navigation}) {
                         onChangeText={onChangeName}
                         value={name}
                         placeholder="Type Name"
-                        // keyboardType="numeric"
                     />
                 </View>
 
@@ -95,7 +94,6 @@ export default function EditStock({navigation}) {
                         onChangeText={onChangeUnit}
                         value={unit}
                         placeholder="Type Unit"
-                        // keyboardType="numeric"
                     />
                 </View>
 

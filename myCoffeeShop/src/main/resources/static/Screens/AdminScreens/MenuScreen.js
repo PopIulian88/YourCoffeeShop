@@ -50,7 +50,6 @@ export default function MenuScreen({navigation}) {
         fetchDataGetProducts().then(respons => {
             setProductData(respons)
         })
-         //console.log(productData);
     }, [])
 
     return (
@@ -102,7 +101,6 @@ export default function MenuScreen({navigation}) {
                     <Dropdown
                         style={menu_styles.inputBox}
                         data={filtersData}
-                        // search
                         placeholderStyle={menu_styles.placeholderStyle}
                         selectedTextStyle={menu_styles.selectedTextStyle}
                         inputSearchStyle={menu_styles.inputSearchStyle}
@@ -111,19 +109,15 @@ export default function MenuScreen({navigation}) {
                         labelField="label"
                         valueField="value"
                         placeholder={!isFocus ? 'Filter' : '...'}
-                        // searchPlaceholder="Search..."
                         value={filterSelected}
 
                         onChange={item => {
-                            // console.log(item.value);
                             if(item.value == 1) {
-                                console.log("GAY1")
                                 fetchDataGetSortedPriceProducts().then(respons => {
                                     setProductData(respons)
                                 })
 
                             }else if(item.value == 2) {
-                                console.log("GAY2")
                                 fetchDataGetSortedNameProducts().then(respons => {
                                     setProductData(respons)
                                 })

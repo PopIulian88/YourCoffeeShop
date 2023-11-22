@@ -41,7 +41,6 @@ export default function LilButton({data, text = "null", color = "black", navigat
             } else {
                 if (action === "STOCK") {
                     fetchDataDeleteStocks(data.id).then(r => {
-                        // console.log("SUCCES DELETE STOCK");
 
                         fetchDataGetStocks().then(respons => {
                             setStocksData(respons)
@@ -52,14 +51,9 @@ export default function LilButton({data, text = "null", color = "black", navigat
                         })
 
                     }).catch(e => {
-                        // console.log(e);
+                        console.log(e);
                     });
                 } else if (action === "ORDER") {
-                    // console.log(tableToEdit);
-                    // console.log(myIndex);
-                    //
-                    // console.log(finishOrderProducts);
-                    // console.log(finishOrderQuantiti);
 
                     const updatedFinishOrderProducts = (tableToEdit.cart).filter((item, index) => index !== myIndex);
                     setFinishOrderProducts(updatedFinishOrderProducts);
@@ -81,8 +75,6 @@ export default function LilButton({data, text = "null", color = "black", navigat
 
                     navigation.replace("FinishOrder");
 
-
-                    // alert("You have to buy the Pass for this features");
                 }
             }
         }}>
@@ -124,7 +116,6 @@ export default function LilButton({data, text = "null", color = "black", navigat
                                     data.amount,
                                     data.unit
                                 ).then(r => {
-                                    // console.log("SUCCES UPDATE STOCK");
 
                                     fetchDataGetStocks().then(respons => {
                                         setStocksData(respons)

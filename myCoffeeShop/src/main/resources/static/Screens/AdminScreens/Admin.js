@@ -6,7 +6,6 @@ import {admin_styles} from "../../Style/Admin_style/Admin_styles";
 
 const Tab = createBottomTabNavigator();
 
-
 export default function Admin() {
 
     return (

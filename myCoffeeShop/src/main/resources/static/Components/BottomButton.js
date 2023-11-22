@@ -1,7 +1,6 @@
 import {Text, TouchableOpacity, View} from "react-native";
 import {bottomButton_styles} from "../Style/Components_style/BottomButton_styles";
 import {MY_GRAY} from "../Help_Box/Colors";
-import {MY_IP} from "../Help_Box/IP_help";
 import {useContext} from "react";
 import {MyContext} from "../Context/MyContext";
 import {
@@ -57,7 +56,6 @@ export default function BottomButton({text="null", navigation, navTo="BACK", act
                                         stockData.unit
                                     ).then(r => {
 
-                                        //This if for update the state
                                         fetchDataGetStocks().then(respons => {
                                             setStocksData(respons)
                                         });
@@ -91,8 +89,6 @@ export default function BottomButton({text="null", navigation, navTo="BACK", act
                         }else if(text === "SAVE") {
                             if(action === "STOCK") {
 
-                                // console.log(stocksData.filter((element) => element.name === stockData.name).length)
-
                                 if(stocksData.find((element) => (element.name === stockData.name && element.id !== stockData.id))) {
                                     alert("Already added");
                                 }else {
@@ -105,7 +101,6 @@ export default function BottomButton({text="null", navigation, navTo="BACK", act
                                         stockData.unit
                                     ).then(r => {
 
-                                        //This if for update the state
                                         fetchDataGetStocks().then(respons => {
                                             setStocksData(respons)
                                         });
@@ -132,7 +127,6 @@ export default function BottomButton({text="null", navigation, navTo="BACK", act
                                         stockData.photoLink
                                     ).then(r => {
 
-                                        //This if for update the state
                                         fetchDataGetProducts().then(respons => {
                                             setProductData(respons)
                                         })
@@ -145,10 +139,6 @@ export default function BottomButton({text="null", navigation, navTo="BACK", act
                                 console.log("No add action");
                             }
                         }else if(text === "Checkout"){
-
-                            // console.log(tableToEdit);
-                            // console.log(BillPrice);
-                            // console.log(profitData)
 
                             fetchDataUpdateProfit(
                                 profitData[0].id,
@@ -171,22 +161,12 @@ export default function BottomButton({text="null", navigation, navTo="BACK", act
                                 })
                             })
 
-
-
-                            // navigation.navigate(navTo);
-
-
                         }else if(text === "Place order") {
-                            //console.log(tableToEdit);
-
-
                             let incredDict = {};
+
                             //Creare dictionar cu incredientele folosite
                             (tableToEdit.cart).forEach((prod, indexProd) => {
                                 (prod.incredients).forEach((incred, indexIncred) => {
-                                    // console.log(incred.name + " = " + ((prod.incredients_quantiti[indexIncred])
-                                    //                         * tableToEdit.products_quantiti[indexProd]).toFixed(2));
-
                                     if(incred.name in incredDict){
                                         incredDict[incred.name] = parseFloat( incredDict[incred.name] ) + parseFloat( ( parseFloat(prod.incredients_quantiti[indexIncred]) * parseFloat( tableToEdit.products_quantiti[indexProd]) ).toFixed(2) );
                                     }else{
@@ -209,7 +189,6 @@ export default function BottomButton({text="null", navigation, navTo="BACK", act
                                     ).then(r => {})
                                 })
                             });
-
 
                             fetchDataUpdateStoreTable(
                                 tableToEdit.id,

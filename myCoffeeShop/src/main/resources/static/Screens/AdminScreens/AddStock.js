@@ -13,7 +13,6 @@ export default function AddStock({navigation}) {
     const [amount, onChangeAmount] = useState('');
     const [unit, onChangeUnit] = useState('');
 
-
     return (
         <View style={addStock_styles.container}>
             <View style={addStock_styles.containerHeader}>
@@ -42,7 +41,6 @@ export default function AddStock({navigation}) {
                         onChangeText={onChangeName}
                         value={name}
                         placeholder="Type Name"
-                        // keyboardType="numeric"
                     />
                 </View>
 
@@ -78,7 +76,6 @@ export default function AddStock({navigation}) {
                         onChangeText={onChangeUnit}
                         value={unit}
                         placeholder="Type Unit"
-                        // keyboardType="numeric"
                     />
                 </View>
 
